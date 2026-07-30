@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+	--background: oklch(100% 0 0);
+	--foreground: oklch(19% 0.006 285);
+
+	--card: oklch(98% 0.003 285);
+	--card-foreground: oklch(19% 0.006 285);
+
+	--primary: oklch(58.5% 0.227 272.4);
+	--primary-foreground: oklch(100% 0 0);
+
+	--secondary: oklch(92% 0.005 300);
+	--secondary-foreground: oklch(19% 0.006 285);
+
+	--accent: oklch(83% 0.010 300);
+	--accent-foreground: oklch(19% 0.006 285);
+
+	--muted: oklch(95% 0.003 300);
+	--muted-foreground: oklch(49% 0.018 300);
+
+	--success: oklch(61.643% 0.17234 149.392);
+	--success-foreground: oklch(97.735% 0.03272 162.505);
+
+	--destructive: oklch(65.007% 0.20083 24.957);
+	--destructive-foreground: oklch(94.298% 0.02856 17.464);
+
+	--border: oklch(83% 0.010 300);
+	--input: oklch(92% 0.005 300);
+	--ring: oklch(58.5% 0.227 272.4);
+
+	--radius: 0.5rem;
+}
+
+.dark {
+	--background: oklch(17.853% 0.00409 285.914);
+	--foreground: oklch(95.948% 0.00294 307.142);
+
+	--card: oklch(21.145% 0.00604 300.925);
+	--card-foreground: oklch(95.948% 0.00294 307.142);
+
+	--primary: oklch(58.543% 0.22673 272.448);
+	--primary-foreground: oklch(95.948% 0.00294 307.142);
+
+	--secondary: oklch(31% 0.010 300);
+	--secondary-foreground: oklch(95.948% 0.00294 307.142);
+
+	--muted: oklch(17% 0.004 286);
+	--muted-foreground: oklch(68% 0.018 300);
+
+	--accent: oklch(40% 0.014 300);
+	--accent-foreground: oklch(95.948% 0.00294 307.142);
+
+	--success: oklch(61.643% 0.17234 149.392);
+	--success-foreground: oklch(97.735% 0.03272 162.505);
+
+	--destructive: oklch(65.007% 0.20083 24.957);
+	--destructive-foreground: oklch(94.298% 0.02856 17.464);
+
+	--border: oklch(40.591% 0.0189 302.018);
+	--input: oklch(31.15% 0.01472 302.508);
+	--ring: oklch(58.038% 0.02666 301.556);
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}

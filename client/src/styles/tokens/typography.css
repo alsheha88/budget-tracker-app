@@ -1,0 +1,103 @@
+@theme {
+	/* ==========================================================================
+     FONT FAMILY
+     ========================================================================== */
+
+	--font-sans: "Inter", sans-serif;
+
+	/* ==========================================================================
+     FONT SIZE
+     ========================================================================== */
+
+	--text-display-lg: 56px;
+	--text-display-md: 48px;
+	--text-display-sm: 36px;
+
+	--text-h1: 32px;
+	--text-h2: 24px;
+	--text-h3: 20px;
+	--text-h4: 18px;
+
+	--text-body-lg: 18px;
+	--text-body-md: 16px;
+	--text-body-sm: 14px;
+
+	--text-caption-lg: 13px;
+	--text-caption-md: 12px;
+	--text-caption-sm: 11px;
+
+	--text-label-lg: 14px;
+	--text-label-md: 12px;
+	--text-label-sm: 11px;
+
+	--text-button-lg: 16px;
+	--text-button-md: 14px;
+	--text-button-sm: 12px;
+
+	/* ==========================================================================
+     FONT WEIGHT
+     ========================================================================== */
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* ==========================================================================
+     LINE HEIGHT
+     ========================================================================== */
+
+	--line-height-display-lg: 64px;
+	--line-height-display-md: 56px;
+	--line-height-display-sm: 44px;
+
+	--line-height-h1: 40px;
+	--line-height-h2: 32px;
+	--line-height-h3: 28px;
+	--line-height-h4: 26px;
+
+	--line-height-body-lg: 28px;
+	--line-height-body-md: 24px;
+	--line-height-body-sm: 20px;
+
+	--line-height-caption-lg: 18px;
+	--line-height-caption-md: 16px;
+	--line-height-caption-sm: 14px;
+
+	--line-height-label-lg: 20px;
+	--line-height-label-md: 16px;
+	--line-height-label-sm: 14px;
+
+	--line-height-button-lg: 24px;
+	--line-height-button-md: 20px;
+	--line-height-button-sm: 16px;
+
+	/* ==========================================================================
+     LETTER SPACING
+     ========================================================================== */
+
+	--tracking-display-lg: -1.5px;
+	--tracking-display-md: -1.2px;
+	--tracking-display-sm: -0.8px;
+
+	--tracking-h1: -0.5px;
+	--tracking-h2: -0.3px;
+	--tracking-h3: -0.2px;
+	--tracking-h4: -0.1px;
+
+	--tracking-body-lg: 0px;
+	--tracking-body-md: 0px;
+	--tracking-body-sm: 0px;
+
+	--tracking-caption-lg: 0.1px;
+	--tracking-caption-md: 0.2px;
+	--tracking-caption-sm: 0.3px;
+
+	--tracking-label-lg: 0.1px;
+	--tracking-label-md: 0.2px;
+	--tracking-label-sm: 0.3px;
+
+	--tracking-button-lg: 0px;
+	--tracking-button-md: 0.1px;
+	--tracking-button-sm: 0.2px;
+}

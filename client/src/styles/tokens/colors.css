@@ -1,0 +1,103 @@
+@theme {
+  /* ==========================================================================
+     Brand
+     ========================================================================== */
+
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+
+  /* ==========================================================================
+     Neutral
+     ========================================================================== */
+
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  /* ==========================================================================
+     Semantic
+     ========================================================================== */
+
+  --color-success-light: #bbf7d0;
+  --color-success: #22c55e;
+  --color-success-dark: #16a34a;
+
+  --color-warning-light: #fef08a;
+  --color-warning: #eab308;
+  --color-warning-dark: #ca8a04;
+
+  --color-error-light: #fecaca;
+  --color-error: #ef4444;
+  --color-error-dark: #dc2626;
+
+  --color-info-light: #bfdbfe;
+  --color-info: #3b82f6;
+  --color-info-dark: #2563eb;
+
+  /* ==========================================================================
+     Chart
+     ========================================================================== */
+
+  --color-chart-emerald: #10b981;
+  --color-chart-blue: #3b82f6;
+  --color-chart-purple: #8b5cf6;
+  --color-chart-amber: #f59e0b;
+  --color-chart-rose: #f43f5e;
+  --color-chart-cyan: #06b6d4;
+  --color-chart-indigo: #6366f1;
+  --color-chart-orange: #f97316;
+
+  /* ==========================================================================
+     Background
+     ========================================================================== */
+
+  --color-bg-primary: #09090b;
+  --color-bg-secondary: #121214;
+  --color-bg-tertiary: #18181b;
+  --color-bg-elevated: #1e1e22;
+
+  /* ==========================================================================
+     Surface
+     ========================================================================== */
+
+  --color-surface-default: #18181b;
+  --color-surface-hover: #1e1e22;
+  --color-surface-active: #27272a;
+  --color-surface-overlay: rgb(9 9 11 / 80%);
+
+  /* ==========================================================================
+     Border
+     ========================================================================== */
+
+  --color-border-default: #27272a;
+  --color-border-subtle: #1e1e22;
+  --color-border-strong: #3f3f46;
+  --color-border-focus: #10b981;
+
+  /* ==========================================================================
+     Text
+     ========================================================================== */
+
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-text-disabled: #3f3f46;
+  --color-text-inverse: #09090b;
+  --color-text-link: #34d399;
+}
