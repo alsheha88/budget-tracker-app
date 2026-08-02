@@ -57,9 +57,10 @@
   --color-interactive-primary-hover: #059669;
   --color-interactive-primary-active: #047857;
   --color-interactive-primary-foreground: #09090b;
-  --color-interactive-secondary: #27272a;
-  --color-interactive-secondary-hover: #3f3f46;
-  --color-interactive-secondary-active: #52525b;
+  --color-interactive-secondary: transparent;
+  --color-interactive-secondary-hover: #1e1e22;
+  --color-interactive-secondary-active: #27272a;
+  --color-interactive-secondary-border: #3f3f46;
   --color-interactive-secondary-foreground: #fafafa;
   --color-interactive-destructive: #ef4444;
   --color-interactive-destructive-hover: #dc2626;
