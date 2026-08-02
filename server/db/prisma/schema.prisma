@@ -25,35 +25,131 @@ model User {
   timeZone     String?
   transactions Transaction[]
   categories   Category[]
+  bills        Bill[]
+  accounts     Account[]
+  budgets      Budget[]
+  savings      Savings[]
 }
 
 model Transaction {
-  id          String          @id @default(uuid()) @db.Uuid
-  merchant    String
-  description String
-  type        TransactionType
-  amount      Decimal         @db.Decimal(12, 3)
-  date        DateTime
-  isRecurring Boolean         @default(false)
-  categoryId  String
-  category    Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-  userId      String
-  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+  id              String          @id @default(uuid()) @db.Uuid
+  merchant        String
+  description     String
+  type            TransactionType
+  amount          Decimal         @db.Decimal(12, 3)
+  date            DateTime
+  isRecurring     Boolean         @default(false)
+  categoryId      String          @db.Uuid
+  category        Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  userId          String          @db.Uuid
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  billId          String?         @db.Uuid
+  bill            Bill?           @relation(fields: [billId], references: [id], onDelete: SetNull)
+  accountId       String          @db.Uuid
+  account         Account         @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  budgetId        String?         @db.Uuid
+  budget          Budget?         @relation(fields: [budgetId], references: [id], onDelete: SetNull)
+  transferGroupId String?         @db.Uuid
+  savings         Savings?        @relation(fields: [savingsId], references: [id], onDelete: SetNull)
+  savingsId       String?         @db.Uuid
 
-model Category {
-  id           String        @id @default(uuid()) @db.Uuid
-  name         String
-  color        String
-  userId       String
-  user         User          @relation(fields: [userId], references: [id])
-  transactions Transaction[]
-
-  @@unique([userId, name])
+  @@index([transferGroupId])
 }
 
 enum TransactionType {
   Income
   Expense
   Transfer
+}
+
+model Category {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         String
+  color        String
+  userId       String        @db.Uuid
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@unique([userId, name])
+}
+
+model Bill {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         String
+  provider     String
+  amount       Decimal       @db.Decimal(12, 3)
+  dueDate      DateTime
+  paidAt       DateTime?
+  frequency    String
+  userId       String        @db.Uuid
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+}
+
+model Account {
+  id              String        @id @default(uuid()) @db.Uuid
+  name            String
+  accountType     AccountType
+  startingBalance Decimal       @db.Decimal(12, 3)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  transactions    Transaction[]
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String        @db.Uuid
+}
+
+enum AccountType {
+  cash
+  checking
+  savings
+  credit
+  investment
+  loan
+}
+
+model Budget {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         String
+  limit        Decimal       @db.Decimal(12, 3)
+  category     Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  period       Period
+  startDate    DateTime
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String        @db.Uuid
+  categoryId   String        @db.Uuid
+  transactions Transaction[]
+
+  @@unique([userId, categoryId, period])
+}
+
+enum Period {
+  weekly
+  monthly
+  quarterly
+  yearly
+}
+
+model Savings {
+  id                  String        @id @default(uuid()) @db.Uuid
+  name                String
+  description         String?
+  target              Decimal       @db.Decimal(12, 3)
+  monthlyContribution Decimal?      @db.Decimal(12, 3)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  targetDate          DateTime?
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String        @db.Uuid
+  transactions        Transaction[]
+  color               String
+  priority            Priority
+}
+
+enum Priority {
+  high
+  medium
+  low
 }
