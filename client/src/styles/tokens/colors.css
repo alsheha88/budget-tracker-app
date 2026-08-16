@@ -1,152 +1,211 @@
 @theme {
-  /* ─── Primitives ─── */
+  /* Primitives — Primary (Emerald) */
+  --color-primary-emerald-50: hsla(152, 81%, 96%, 1);
+  --color-primary-emerald-100: hsla(149, 80%, 90%, 1);
+  --color-primary-emerald-200: hsla(152, 76%, 80%, 1);
+  --color-primary-emerald-300: hsla(156, 72%, 67%, 1);
+  --color-primary-emerald-400: hsla(158, 64%, 52%, 1);
+  --color-primary-emerald-500: hsla(160, 84%, 39%, 1);
+  --color-primary-emerald-600: hsla(161, 94%, 30%, 1);
+  --color-primary-emerald-700: hsla(163, 94%, 24%, 1);
+  --color-primary-emerald-800: hsla(163, 88%, 20%, 1);
+  --color-primary-emerald-900: hsla(164, 86%, 16%, 1);
 
-  /* Primary (Emerald) */
-  --color-primary-50: #ecfdf5;
-  --color-primary-100: #d1fae5;
-  --color-primary-200: #a7f3d0;
-  --color-primary-300: #6ee7b7;
-  --color-primary-400: #34d399;
-  --color-primary-500: #10b981;
-  --color-primary-600: #059669;
-  --color-primary-700: #047857;
-  --color-primary-800: #065f46;
-  --color-primary-900: #064e3b;
+  /* Primitives — Neutral (Gray) */
+  --color-neutral-gray-50: hsla(0, 0%, 98%, 1);
+  --color-neutral-gray-100: hsla(240, 5%, 96%, 1);
+  --color-neutral-gray-200: hsla(240, 6%, 90%, 1);
+  --color-neutral-gray-250: hsla(220, 13%, 91%, 1);
+  --color-neutral-gray-300: hsla(240, 5%, 84%, 1);
+  --color-neutral-gray-400: hsla(240, 5%, 65%, 1);
+  --color-neutral-gray-500: hsla(240, 4%, 46%, 1);
+  --color-neutral-gray-600: hsla(240, 5%, 34%, 1);
+  --color-neutral-gray-700: hsla(240, 5%, 26%, 1);
+  --color-neutral-gray-800: hsla(240, 4%, 16%, 1);
+  --color-neutral-gray-900: hsla(240, 6%, 10%, 1);
+  --color-neutral-gray-950: hsla(240, 10%, 4%, 1);
+  --color-neutral-white: hsla(0, 0%, 100%, 1);
 
-  /* Neutral (Gray) */
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f4f4f5;
-  --color-neutral-200: #e4e4e7;
-  --color-neutral-300: #d4d4d8;
-  --color-neutral-400: #a1a1aa;
-  --color-neutral-500: #71717a;
-  --color-neutral-600: #52525b;
-  --color-neutral-700: #3f3f46;
-  --color-neutral-800: #27272a;
-  --color-neutral-900: #18181b;
-  --color-neutral-950: #09090b;
+  /* Feedback */
+  --color-feedback-success-light: hsla(141, 79%, 85%, 1);
+  --color-feedback-success: hsla(142, 71%, 45%, 1);
+  --color-feedback-success-dark: hsla(142, 76%, 36%, 1);
+  --color-feedback-warning-light: hsla(53, 98%, 77%, 1);
+  --color-feedback-warning: hsla(45, 93%, 47%, 1);
+  --color-feedback-warning-dark: hsla(41, 96%, 40%, 1);
+  --color-feedback-error-light: hsla(0, 96%, 89%, 1);
+  --color-feedback-error: hsla(0, 84%, 60%, 1);
+  --color-feedback-error-dark: hsla(0, 72%, 51%, 1);
+  --color-feedback-info-light: hsla(213, 97%, 87%, 1);
+  --color-feedback-info: hsla(217, 91%, 60%, 1);
+  --color-feedback-info-dark: hsla(221, 83%, 53%, 1);
 
-  /* ─── Semantic: Backgrounds ─── */
-  --color-bg-primary: #09090b;
-  --color-bg-secondary: #121214;
-  --color-bg-tertiary: #18181b;
-  --color-bg-elevated: #1e1e22;
+  /* Chart */
+  --color-chart-emerald: hsla(160, 84%, 39%, 1);
+  --color-chart-blue: hsla(217, 91%, 60%, 1);
+  --color-chart-purple: hsla(258, 90%, 66%, 1);
+  --color-chart-amber: hsla(38, 92%, 50%, 1);
+  --color-chart-rose: hsla(350, 89%, 60%, 1);
+  --color-chart-cyan: hsla(189, 94%, 43%, 1);
+  --color-chart-indigo: hsla(239, 84%, 67%, 1);
+  --color-chart-orange: hsla(25, 95%, 53%, 1);
 
-  /* ─── Semantic: Surfaces ─── */
-  --color-surface-default: #18181b;
-  --color-surface-hover: #1e1e22;
-  --color-surface-active: #27272a;
-  --color-surface-overlay: rgb(9 9 11 / 80%);
+  /* Backgrounds */
+  --color-bg-primary: hsla(240, 10%, 4%, 1);
+  --color-bg-secondary: hsla(240, 5%, 7%, 1);
+  --color-bg-tertiary: hsla(240, 6%, 10%, 1);
+  --color-bg-elevated: hsla(240, 6%, 13%, 1);
+  --color-bg-dark: hsla(240, 7%, 8%, 1);
+  --color-bg-deep: hsla(240, 8%, 10%, 1);
 
-  /* ─── Semantic: Text ─── */
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-tertiary: #71717a;
-  --color-text-disabled: #3f3f46;
-  --color-text-inverse: #09090b;
-  --color-text-link: #34d399;
+  /* Surfaces */
+  --color-surface-default: hsla(240, 6%, 10%, 1);
+  --color-surface-hover: hsla(240, 6%, 13%, 1);
+  --color-surface-active: hsla(240, 4%, 16%, 1);
+  --color-surface-overlay: hsla(240, 10%, 4%, 0.8);
+  --color-surface-dark: hsla(240, 3%, 11%, 1);
 
-  /* ─── Semantic: Border ─── */
-  --color-border-default: #27272a;
-  --color-border-subtle: #1e1e22;
-  --color-border-strong: #3f3f46;
-  --color-border-focus: #10b981;
+  /* Borders */
+  --color-border-default: hsla(240, 4%, 16%, 1);
+  --color-border-subtle: hsla(240, 6%, 13%, 1);
+  --color-border-strong: hsla(240, 5%, 26%, 1);
+  --color-border-focus: hsla(160, 84%, 39%, 1);
 
-   /* ─── Interactive (Buttons) ─── */
-  --color-interactive-primary: #10b981;
-  --color-interactive-primary-hover: #059669;
-  --color-interactive-primary-active: #047857;
-  --color-interactive-primary-foreground: #09090b;
-  --color-interactive-secondary: transparent;
-  --color-interactive-secondary-hover: #1e1e22;
-  --color-interactive-secondary-active: #27272a;
-  --color-interactive-secondary-border: #3f3f46;
-  --color-interactive-secondary-foreground: #fafafa;
-  --color-interactive-destructive: #ef4444;
-  --color-interactive-destructive-hover: #dc2626;
-  --color-interactive-destructive-active: #b91c1c;
-  --color-interactive-destructive-foreground: #fafafa;
-  --color-interactive-ghost-hover: rgb(39 39 42 / 50%);
-  --color-interactive-ghost-active: rgb(39 39 42 / 70%);
-  --color-interactive-ghost-foreground: #fafafa;
+  /* Text */
+  --color-text-primary: hsla(0, 0%, 98%, 1);
+  --color-text-secondary: hsla(240, 5%, 65%, 1);
+  --color-text-tertiary: hsla(240, 4%, 46%, 1);
+  --color-text-disabled: hsla(240, 5%, 26%, 1);
+  --color-text-inverse: hsla(240, 10%, 4%, 1);
+  --color-text-link: hsla(158, 64%, 52%, 1);
 
+  /* Interactive */
+  --color-interactive-primary: hsla(160, 84%, 39%, 1);
+  --color-interactive-primary-hover: hsla(161, 94%, 30%, 1);
+  --color-interactive-primary-active: hsla(163, 94%, 24%, 1);
+  --color-interactive-primary-foreground: hsla(240, 10%, 4%, 1);
+  --color-interactive-secondary: hsla(0, 0%, 0%, 0);
+  --color-interactive-secondary-hover: hsla(240, 6%, 13%, 1);
+  --color-interactive-secondary-active: hsla(240, 4%, 16%, 1);
+  --color-interactive-secondary-foreground: hsla(0, 0%, 98%, 1);
+  --color-interactive-secondary-border: hsla(240, 5%, 26%, 1);
+  --color-interactive-destructive: hsla(0, 84%, 60%, 1);
+  --color-interactive-destructive-hover: hsla(0, 72%, 51%, 1);
+  --color-interactive-destructive-active: hsla(0, 74%, 42%, 1);
+  --color-interactive-destructive-foreground: hsla(0, 0%, 98%, 1);
+  --color-interactive-ghost-hover: hsla(240, 4%, 16%, 0.5);
+  --color-interactive-ghost-active: hsla(240, 4%, 16%, 0.7);
+  --color-interactive-ghost-foreground: hsla(0, 0%, 98%, 1);
 
-  /* ─── Accent ─── */
-  --color-accent-default: rgb(16 185 129 / 15%);
-  --color-accent-foreground: #34d399;
+  /* Accent */
+  --color-accent-default: hsla(160, 84%, 39%, 0.15);
+  --color-accent-foreground: hsla(158, 64%, 52%, 1);
 
-  /* ─── Card ─── */
-  --color-card-default: #18181b;
-  --color-card-foreground: #fafafa;
-  --color-card-hover: #1e1e22;
+  /* Card */
+  --color-card-default: hsla(240, 6%, 10%, 1);
+  --color-card-foreground: hsla(0, 0%, 98%, 1);
+  --color-card-hover: hsla(240, 6%, 13%, 1);
+  --color-card-dark: hsla(240, 7%, 13%, 1);
 
-  /* ─── Popover ─── */
-  --color-popover-default: #18181b;
-  --color-popover-foreground: #fafafa;
+  /* Popover */
+  --color-popover-default: hsla(240, 6%, 10%, 1);
+  --color-popover-foreground: hsla(0, 0%, 98%, 1);
 
-  /* ─── Input ─── */
-  --color-input-default: #27272a;
-  --color-input-focus: #10b981;
-  --color-input-invalid: #ef4444;
-  --color-input-placeholder: #71717a;
-  --color-input-background: #121214;
+  /* Input */
+  --color-input-default: hsla(240, 4%, 16%, 1);
+  --color-input-focus: hsla(160, 84%, 39%, 1);
+  --color-input-invalid: hsla(0, 84%, 60%, 1);
+  --color-input-placeholder: hsla(240, 4%, 46%, 1);
+  --color-input-background: hsla(240, 5%, 7%, 1);
 
-  /* ─── Ring ─── */
-  --color-ring-default: #10b981;
-  --color-ring-destructive: #ef4444;
-  --color-ring-offset: #09090b;
+  /* Ring */
+  --color-ring-default: hsla(160, 84%, 39%, 1);
+  --color-ring-destructive: hsla(0, 84%, 60%, 1);
+  --color-ring-offset: hsla(240, 10%, 4%, 1);
 
-  /* ─── Feedback ─── */
-  --color-feedback-success-light: #bbf7d0;
-  --color-feedback-success: #22c55e;
-  --color-feedback-success-dark: #16a34a;
-  --color-feedback-warning-light: #fef08a;
-  --color-feedback-warning: #eab308;
-  --color-feedback-warning-dark: #ca8a04;
-  --color-feedback-error-light: #fecaca;
-  --color-feedback-error: #ef4444;
-  --color-feedback-error-dark: #dc2626;
-  --color-feedback-info-light: #bfdbfe;
-  --color-feedback-info: #3b82f6;
-  --color-feedback-info-dark: #2563eb;
+  /* Sidebar */
+  --color-sidebar-background: hsla(240, 10%, 4%, 1);
+  --color-sidebar-foreground: hsla(240, 5%, 65%, 1);
+  --color-sidebar-active: hsla(160, 84%, 39%, 1);
+  --color-sidebar-active-foreground: hsla(0, 0%, 98%, 1);
+  --color-sidebar-hover: hsla(240, 6%, 10%, 1);
+  --color-sidebar-border: hsla(240, 6%, 13%, 1);
 
-  /* ─── Badge ─── */
-  --color-badge-default: #27272a;
-  --color-badge-foreground: #fafafa;
-  --color-badge-success: rgb(34 197 94 / 15%);
-  --color-badge-success-foreground: #22c55e;
-  --color-badge-warning: rgb(234 179 8 / 15%);
-  --color-badge-warning-foreground: #eab308;
-  --color-badge-error: rgb(239 68 68 / 15%);
-  --color-badge-error-foreground: #ef4444;
-  --color-badge-info: rgb(59 130 246 / 15%);
-  --color-badge-info-foreground: #3b82f6;
+  /* Badge */
+  --color-badge-default: hsla(240, 4%, 16%, 1);
+  --color-badge-foreground: hsla(0, 0%, 98%, 1);
+  --color-badge-success: hsla(142, 71%, 45%, 0.15);
+  --color-badge-success-foreground: hsla(142, 71%, 45%, 1);
+  --color-badge-warning: hsla(45, 93%, 47%, 0.15);
+  --color-badge-warning-foreground: hsla(45, 93%, 47%, 1);
+  --color-badge-error: hsla(0, 84%, 60%, 0.15);
+  --color-badge-error-foreground: hsla(0, 84%, 60%, 1);
+  --color-badge-info: hsla(217, 91%, 60%, 0.15);
+  --color-badge-info-foreground: hsla(217, 91%, 60%, 1);
 
-  /* ─── Sidebar ─── */
-  --color-sidebar-background: #09090b;
-  --color-sidebar-foreground: #a1a1aa;
-  --color-sidebar-active: #10b981;
-  --color-sidebar-active-foreground: #fafafa;
-  --color-sidebar-hover: #18181b;
-  --color-sidebar-border: #1e1e22;
+  /* Table */
+  --color-table-header: hsla(240, 5%, 7%, 1);
+  --color-table-row-hover: hsla(240, 6%, 10%, 1);
+  --color-table-border: hsla(240, 6%, 13%, 1);
 
-  /* ─── Table ─── */
-  --color-table-header: #121214;
-  --color-table-row-hover: #18181b;
-  --color-table-border: #1e1e22;
+  /* Toggle */
+  --color-toggle-off: hsla(240, 5%, 26%, 1);
+  --color-toggle-on: hsla(160, 84%, 39%, 1);
+  --color-toggle-thumb: hsla(0, 0%, 98%, 1);
 
-  /* ─── Toggle ─── */
-  --color-toggle-off: #3f3f46;
-  --color-toggle-on: #10b981;
-  --color-toggle-thumb: #fafafa;
+  /* Category */
+  --color-category-groceries: hsla(160, 84%, 39%, 0.15);
+  --color-category-groceries-fg: hsla(160, 84%, 39%, 1);
+  --color-category-dining: hsla(5, 93%, 67%, 0.15);
+  --color-category-dining-fg: hsla(5, 93%, 67%, 1);
+  --color-category-transport: hsla(217, 91%, 60%, 0.15);
+  --color-category-transport-fg: hsla(217, 91%, 60%, 1);
+  --color-category-shopping: hsla(38, 92%, 50%, 0.15);
+  --color-category-shopping-fg: hsla(38, 92%, 50%, 1);
+  --color-category-entertainment: hsla(258, 90%, 66%, 0.15);
+  --color-category-entertainment-fg: hsla(258, 90%, 66%, 1);
+  --color-category-health: hsla(350, 89%, 60%, 0.15);
+  --color-category-health-fg: hsla(350, 89%, 60%, 1);
+  --color-category-bills: hsla(189, 94%, 43%, 0.15);
+  --color-category-bills-fg: hsla(189, 94%, 43%, 1);
+  --color-category-salary: hsla(153, 72%, 47%, 0.15);
+  --color-category-salary-fg: hsla(153, 72%, 47%, 1);
+  --color-category-subscription: hsla(239, 84%, 67%, 0.15);
+  --color-category-subscription-fg: hsla(239, 84%, 67%, 1);
+  --color-category-travel: hsla(25, 95%, 53%, 0.15);
+  --color-category-travel-fg: hsla(25, 95%, 53%, 1);
 
-  /* ─── Chart ─── */
-  --color-chart-emerald: #10b981;
-  --color-chart-blue: #3b82f6;
-  --color-chart-purple: #8b5cf6;
-  --color-chart-amber: #f59e0b;
-  --color-chart-rose: #f43f5e;
-  --color-chart-cyan: #06b6d4;
-  --color-chart-indigo: #6366f1;
-  --color-chart-orange: #f97316;
+  /* Status */
+  --color-status-success: hsla(142, 71%, 45%, 0.15);
+  --color-status-success-fg: hsla(142, 71%, 45%, 1);
+  --color-status-warning: hsla(45, 93%, 47%, 0.15);
+  --color-status-warning-fg: hsla(45, 93%, 47%, 1);
+  --color-status-danger: hsla(0, 84%, 60%, 0.15);
+  --color-status-danger-fg: hsla(0, 84%, 60%, 1);
+  --color-status-neutral: hsla(240, 4%, 16%, 1);
+  --color-status-neutral-fg: hsla(240, 5%, 65%, 1);
+  --color-status-info: hsla(217, 91%, 60%, 0.15);
+  --color-status-info-fg: hsla(217, 91%, 60%, 1);
+
+  /* Priority */
+  --color-priority-critical: hsla(0, 84%, 60%, 0.15);
+  --color-priority-critical-fg: hsla(0, 84%, 60%, 1);
+  --color-priority-high: hsla(350, 89%, 60%, 0.15);
+  --color-priority-high-fg: hsla(350, 89%, 60%, 1);
+  --color-priority-medium: hsla(38, 92%, 50%, 0.15);
+  --color-priority-medium-fg: hsla(38, 92%, 50%, 1);
+  --color-priority-low: hsla(160, 84%, 39%, 0.15);
+  --color-priority-low-fg: hsla(160, 84%, 39%, 1);
+
+  /* Financial */
+  --color-financial-gain: hsla(160, 84%, 39%, 0.15);
+  --color-financial-gain-fg: hsla(160, 84%, 39%, 1);
+  --color-financial-loss: hsla(350, 89%, 60%, 0.15);
+  --color-financial-loss-fg: hsla(350, 89%, 60%, 1);
+
+  /* Tier */
+  --color-tier-gold: hsla(38, 92%, 50%, 0.15);
+  --color-tier-gold-fg: hsla(38, 92%, 50%, 1);
+  --color-tier-premium: hsla(258, 90%, 66%, 0.15);
+  --color-tier-premium-fg: hsla(258, 90%, 66%, 1);
 }

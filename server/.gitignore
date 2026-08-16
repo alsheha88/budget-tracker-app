@@ -7,4 +7,5 @@ node_modules
 /.claude
 /.agents
 
-/generated/prisma
+db/prisma
+db/generated/prisma

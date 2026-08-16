@@ -1,0 +1,21 @@
+{
+  "categories": [
+    { "name": "groceries",     "color": "#10B981" },
+    { "name": "dining",        "color": "#F96B5E" },
+    { "name": "transport",     "color": "#3B82F6" },
+    { "name": "shopping",      "color": "#F59E0B" },
+    { "name": "entertainment", "color": "#8B5CF6" },
+    { "name": "health",        "color": "#F43F5E" },
+    { "name": "bills",         "color": "#06B6D4" },
+    { "name": "salary",        "color": "#22CD81" },
+    { "name": "subscription",  "color": "#6366F1" },
+    { "name": "travel",        "color": "#F97316" },
+    { "name": "coffee",        "color": "#A78BFA" },
+    { "name": "fuel",          "color": "#EAB308" },
+    { "name": "rent",          "color": "#EC4899" },
+    { "name": "utilities",     "color": "#14B8A6" },
+    { "name": "education",     "color": "#D97706" },
+    { "name": "fitness",       "color": "#84CC16" },
+    { "name": "gifts",         "color": "#D946EF" }
+  ]
+}

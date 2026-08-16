@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 @import "tailwindcss";
 
 @import "./colors.css";
@@ -6,4 +8,9 @@
 @import "./opacity.css";
 @import "./border.css";
 @import "./icon.css";
-@import "./text-styles.css"
+@import "./text-styles.css";
+@import "@daypicker/react/style.css";
+
+body {
+  font-family: "Inter", sans-serif;
+}

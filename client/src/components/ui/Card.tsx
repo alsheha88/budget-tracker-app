@@ -6,7 +6,7 @@ const sizeClasses = {
   sm: 'p-3',
   md: 'p-4',
   lg: 'p-5',
-  xl: 'p-6'
+  xl: 'p-6',
 } as const
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
