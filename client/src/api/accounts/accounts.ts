@@ -1,23 +1,37 @@
+import type { AccountStatsResponse } from "../../../../shared/types";
 import { api } from "../../lib/api";
+import {
+	type EditAccountData,
+	type CreateAccountData,
+} from "../../schemas/accountsSchema";
+import { type IdParamsType } from "../../schemas/authSchema";
 
-type AccountsListResponse = {
-	id: string;
-	name: string;
-	accountType:
-		| "cash"
-		| "checking"
-		| "savings"
-		| "credit"
-		| "investment"
-		| "loan";
-	startingBalance: string;
-	createdAt: string;
-	updatedAt: string;
-	userId: string;
-}[];
+export const getAccountStats = async (): Promise<AccountStatsResponse> => {
+	const res = await api.get("/accounts/stats");
 
-export const getAccounts = async (): Promise<AccountsListResponse> => {
-	const res = await api.get("/accounts");
+	return res.data.data.accountStats;
+};
 
-	return res.data.data.accounts;
+export const createAccount = async (data: CreateAccountData) => {
+	const res = await api.post("/accounts", data);
+
+	return res.data.data.account;
+};
+
+export const editAccount = async ({
+	id,
+	data,
+}: {
+	id: IdParamsType;
+	data: EditAccountData;
+}) => {
+	const res = await api.patch(`/accounts/${id}`, data);
+
+	return res.data.data.account;
+};
+
+export const deleteAccount = async (id: IdParamsType) => {
+	const res = await api.delete(`/accounts/${id}`);
+
+	return res.data.data;
 };

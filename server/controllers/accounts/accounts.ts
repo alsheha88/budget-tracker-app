@@ -17,6 +17,7 @@ import {
 } from "../../errors/errors.js";
 import { Prisma } from "../../db/generated/prisma/client.js";
 import { idParamsSchema } from "../../schemas/user/user.js";
+import { dbGetAccountStats } from "../../db/functions/stats/stats.js";
 
 export const getAccounts: RequestHandler = async (req, res) => {
 	const userId = req.user.id;
@@ -123,3 +124,11 @@ export const deleteAccount: RequestHandler = async (req, res) => {
 		throw err;
 	}
 };
+
+export const getAccountStats:RequestHandler = async (req, res) => {
+	const userId = req.user.id;
+
+	const accountStats = await dbGetAccountStats(userId);
+
+	res.status(200).json({data: {accountStats}})
+} 

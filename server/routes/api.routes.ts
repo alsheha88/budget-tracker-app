@@ -6,6 +6,7 @@ import accountsRouter from "./accounts.routes.js";
 import billsRouter from "./bills.routes.js";
 import budgetsRouter from "./budgets.routes.js";
 import savingsRouter from "./savings.routes.js";
+import dashboardRouter from './dashboard.routes.js'
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 
@@ -18,6 +19,7 @@ router.use("/accounts", authMiddleware, accountsRouter);
 router.use("/budgets", authMiddleware, budgetsRouter);
 router.use("/bills", authMiddleware, billsRouter);
 router.use("/savings", authMiddleware, savingsRouter);
+router.use("/dashboard", authMiddleware, dashboardRouter);
 
 export default router;
 

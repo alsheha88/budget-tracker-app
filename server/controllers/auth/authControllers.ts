@@ -25,6 +25,7 @@ import {
 	dbGetRefreshToken,
 	getEmailVerificationToken,
 	getUserByEmail,
+	getUserById,
 	invalidateAllUserRefreshTokens,
 	markRefreshToken,
 	updateEmailVerificationToken,
@@ -183,3 +184,13 @@ export const refresh: RequestHandler = async (req, res) => {
 };
 
 export const resetPassword: RequestHandler = async (req, res) => {};
+
+export const getUser: RequestHandler = async (req, res) => {
+	const userId = req.user.id;
+
+	const user = await getUserById(userId);
+
+	if (!user) throw new NotFoundError("User not found");
+
+	res.status(200).json({ data: { user } });
+};

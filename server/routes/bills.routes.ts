@@ -5,11 +5,13 @@ import {
 	editBill,
 	getBill,
 	getBills,
+	getBillsStats,
 	markAsPaid,
 } from "../controllers/bills/bills.js";
 const router = express.Router();
 
 router.get("/", getBills);
+router.get("/stats", getBillsStats);
 router.get("/:id", getBill);
 router.post("/:id", createBill);
 router.patch("/:id/pay", markAsPaid);

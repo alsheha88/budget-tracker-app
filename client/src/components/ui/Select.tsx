@@ -7,21 +7,21 @@ type SelectProps = {
 	options: { label: string; value: string }[];
 	placeholder: string;
 	error?: string;
+	value?: string; 
+	onValueChange?: (value: string) => void;
 };
 
-function SelectComponent({ label, options, placeholder, error }: SelectProps) {
-	const labelId = useId()
+function SelectComponent({ label, options, placeholder, value, onValueChange ,error }: SelectProps) {
+	const labelId = useId();
 	return (
-		<div className="flex flex-col gap-1">
-			<label
-				id={labelId}
-				className="text-sidebar-foreground text-caption-lg">
+		<div className="flex flex-col gap-2">
+			<label id={labelId} className="text-sidebar-foreground text-caption-lg">
 				{label}
 			</label>
-			<Select.Root>
+			<Select.Root value={value} onValueChange={onValueChange}>
 				<Select.Trigger
 					aria-labelledby={labelId}
-					className="min-w-2xs flex items-center justify-between gap-2 p-3 bg-table-row-hover border border-border-default rounded-sm text-body-sm text-text-primary cursor-pointer focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-border-focus data-state-open:border-border-focus">
+					className="min-w-2xs flex items-center justify-between gap-2 p-3 bg-input-background border border-border-default rounded-sm text-body-sm text-text-primary cursor-pointer focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-border-focus data-state-open:border-border-focus">
 					<Select.Value placeholder={placeholder} />
 					<Select.Icon>
 						<ChevronDown />
@@ -31,7 +31,7 @@ function SelectComponent({ label, options, placeholder, error }: SelectProps) {
 					<Select.Content
 						position="popper"
 						sideOffset={4}
-						className="w-(--radix-select-trigger-width) p-1 bg-table-row-hover rounded-sm border border-border-default">
+						className="w-(--radix-select-trigger-width) p-1 bg-input-background rounded-sm border border-border-default">
 						<Select.ScrollUpButton className="text-text-primary">
 							<ChevronUp />
 						</Select.ScrollUpButton>

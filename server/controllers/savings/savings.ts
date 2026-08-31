@@ -12,6 +12,7 @@ import {
 	dbGetSavings,
 	updateSaving,
 } from "../../db/functions/savings/savings.js";
+import { dbGetSavingsPageStats, dbGetSavingsStats } from "../../db/functions/stats/stats.js";
 
 export const createSavings: RequestHandler = async (req, res) => {
 	const userId = req.user.id;
@@ -82,4 +83,12 @@ export const getAllSavings: RequestHandler = async (req, res) => {
 	const savings = await dbGetSavings(userId);
 
 	res.status(200).json({ data: { savings } });
+};
+
+export const getSavingsStats: RequestHandler = async (req, res) => {
+	const userId = req.user.id;
+
+	const savingsStats = await dbGetSavingsPageStats(userId);
+
+	res.status(200).json({ data: { savingsStats } });
 };

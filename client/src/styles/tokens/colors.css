@@ -209,3 +209,8 @@
   --color-tier-premium: hsla(258, 90%, 66%, 0.15);
   --color-tier-premium-fg: hsla(258, 90%, 66%, 1);
 }
+
+body {
+  color: #55555b;
+}
+

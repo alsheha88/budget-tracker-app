@@ -1,8 +1,12 @@
 import { DayPicker } from "@daypicker/react";
-import { useState } from "react";
 
-function DatePicker() {
-	const [selected, setSelected] = useState<Date>();
+type DatePickerProps = {
+	selected?: Date;
+	setSelected: (date: Date | undefined) => void;
+}
+
+
+function DatePicker({selected, setSelected}:DatePickerProps) {
 
 	return (
 		<DayPicker

@@ -17,7 +17,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
     ({className,  size = "lg",...props}, ref) => (
-        <div ref={ref} className={cn('border border-border-default bg-card-default text-card-foreground rounded-lg', sizeClasses[size] , className)} {...props} />
+        <div ref={ref} className={cn('border border-border-default bg-bg-dark text-card-foreground rounded-lg', sizeClasses[size] , className)} {...props} />
     )
 )
 Card.displayName = 'Card';

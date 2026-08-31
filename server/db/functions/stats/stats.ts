@@ -25,6 +25,25 @@ export const dbGetGoalsSaved = async (userId: string) => {
 
 	return savings;
 };
+
+export const dbGetSavingsPageStats = async (userId: string) => {
+	const savings = await dbGetGoalsSaved(userId);
+	const totalTarget = savings.reduce(
+		(acc, s) => (acc += s.target.toNumber()),
+		0,
+	);
+	const totalSaved = savings.reduce((acc, s) => (acc += s.saved), 0);
+	const percent = totalTarget ? (totalSaved / totalTarget) * 100 : 0;
+
+	return {
+		savings,
+		summary: {
+			totalSaved,
+			totalTarget,
+			percent,
+		},
+	};
+};
 export const dbGetAccountBalance = async (userId: string) => {
 	const [accounts, accountBalance] = await Promise.all([
 		prisma.account.findMany({ where: { userId } }),
@@ -120,7 +139,7 @@ export const dbGetBillsStats = async (userId: string) => {
 	const in7Days = new Date();
 	in7Days.setDate(in7Days.getDate() + 7);
 
-	const [monthlyBillsTotal, upcomingBills, paidBills] = await Promise.all([
+	const [monthlyBillsTotal, upcomingBills, paidBills, overdueBills] = await Promise.all([
 		prisma.bill.aggregate({
 			where: { userId, dueDate: { gte: monthStart, lte: monthEnd } },
 			_sum: { amount: true },
@@ -137,12 +156,17 @@ export const dbGetBillsStats = async (userId: string) => {
 			where: { userId, paidAt: { gte: monthStart, lte: monthEnd } },
 			_sum: { amount: true },
 		}),
+		prisma.bill.aggregate({
+			where: { userId, dueDate: { lt: now }, paidAt: null },
+			_sum: { amount: true },
+		}),
 	]);
 
 	return {
 		monthlyBills: monthlyBillsTotal._sum.amount?.toNumber() ?? 0,
 		upcomingWeeklyBills: upcomingBills._sum.amount?.toNumber() ?? 0,
 		paidBills: paidBills._sum.amount?.toNumber() ?? 0,
+		overdueBills: overdueBills._sum.amount?.toNumber() ?? 0,
 	};
 };
 
@@ -231,6 +255,7 @@ export const dbGetBudgetStats = async (userId: string) => {
 		remaining,
 		overAllUsageRate,
 		budgetHealthRate,
+		budgetStats,
 	};
 };
 
@@ -339,20 +364,19 @@ export const dbGetDashboardStats = async (userId: string) => {
 		recentTransactions,
 		budgetStats,
 		savingsStats,
-        cashFlow,
-        spendingByCategory
+		cashFlow,
+		spendingByCategory,
 	] = await Promise.all([
 		dbGetAccountStats(userId),
 		dbGetTransactionStats(userId),
 		dbGetRecentTransactions(userId),
 		dbGetBudgetProgress(userId),
 		dbGetGoalsSaved(userId),
-        dbGetHistoricalTransactions(userId),
-        dbGetSpendingByCategroy(userId)
+		dbGetHistoricalTransactions(userId),
+		dbGetSpendingByCategroy(userId),
 	]);
 	const { summary } = accounts;
 	const { income, expenses, balance } = transactions;
-    
 
 	return {
 		accountsSummary: summary,
@@ -364,7 +388,7 @@ export const dbGetDashboardStats = async (userId: string) => {
 		recentTransactions,
 		budgetStats,
 		savingsStats,
-        cashFlow,
-        spendingByCategory
+		cashFlow,
+		spendingByCategory,
 	};
 };

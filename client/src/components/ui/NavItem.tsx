@@ -4,7 +4,7 @@ import { cn } from "../../lib/cn";
 type NavItemProp = {
 	to: string;
 	icon: React.ReactNode;
-	content: string;
+	content?: string;
 };
 
 function NavItem({ to, icon, content }: NavItemProp) {

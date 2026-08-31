@@ -6,6 +6,7 @@ import {
 	dbDeleteBill,
 	dbGetBill,
 	dbGetBills,
+	dbGetBillsPageStats,
 	dbMarkAsPaid,
 	updateBill,
 } from "../../db/functions/bill/bills.js";
@@ -97,4 +98,13 @@ export const getBills: RequestHandler = async (req, res) => {
 	if (!bills) throw new NotFoundError("Bill not found");
 
 	res.status(200).json({ data: { bills } });
+};
+
+
+export const getBillsStats: RequestHandler = async (req, res) => {
+	const userId = req.user.id;
+
+	const billsStats = await dbGetBillsPageStats(userId);
+
+	res.status(200).json({ data: { billsStats } });
 };
