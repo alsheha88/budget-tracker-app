@@ -42,15 +42,17 @@ function Modal({
 						<Dialog.Close asChild>
 							<Button variant="ghost">Cancel</Button>
 						</Dialog.Close>
-						{type === "delete" ? (
-							<Button variant="destructive" onClick={onDelete}>
-								{btnContent}
-							</Button>
-						) : (
-							<Button variant="primary" onClick={onAction}>
-								{btnContent}
-							</Button>
-						)}
+						<Dialog.Close asChild>
+							{type === "delete" ? (
+								<Button variant="destructive" onClick={onDelete}>
+									{btnContent}
+								</Button>
+							) : (
+								<Button variant="primary" onClick={onAction}>
+									{btnContent}
+								</Button>
+							)}
+						</Dialog.Close>
 					</div>
 				</Dialog.Content>
 			</Dialog.Portal>

@@ -22,11 +22,10 @@ function BudgetsPage() {
 	const { data: budgets, isError, isPending } = useGetBudgetsStats();
 	const { mutate: deleteBudget } = useDeleteBudget();
 	if (!budgets) return null;
-	if (!budget) return null;
 	const budgetHealth = budgets.budgetHealthRate;
 
 	const handleDelete = () => {
-		deleteBudget(budget.id);
+		deleteBudget(budget!.id);
 		setIsModalOpen(false);
 	};
 
@@ -45,7 +44,14 @@ function BudgetsPage() {
 						Manage and track your monthly budget allocation.
 					</p>
 				</div>
-				<Button size="lg" type="button" onClick={() => setIsFormOpen(true)}>
+				<Button
+					size="lg"
+					type="button"
+					onClick={() => {
+						setType("Add");
+						setBudget(null);
+						setIsFormOpen(true);
+					}}>
 					Create Budget
 				</Button>
 			</div>
@@ -99,7 +105,7 @@ function BudgetsPage() {
 							setBudget={setBudget}
 							setType={setType}
 							setIsFormOpen={setIsFormOpen}
-              setIsModalOpen={setIsModalOpen}
+							setIsModalOpen={setIsModalOpen}
 						/>
 					))}
 				</div>
@@ -108,17 +114,21 @@ function BudgetsPage() {
 				type={type}
 				isOpen={isFormOpen}
 				setIsOpen={setIsFormOpen}
-				budget={budget!}
+				budget={budget}
 			/>
-      <Modal
-					title={`Delete ${budget.name}`}
-					content={`Are you sure you want to delete ${budget.name}? this action cannot be undone`}
-					btnContent={"Delete"}
-					type={"delete"}
-					open={isModalOpen}
-					onDelete={handleDelete}
-					onOpenChange={setIsModalOpen}
-				/>
+			{budget && (
+				<>
+					<Modal
+						title={`Delete ${budget.name}`}
+						content={`Are you sure you want to delete ${budget.name}? this action cannot be undone`}
+						btnContent={"Delete"}
+						type={"delete"}
+						open={isModalOpen}
+						onDelete={handleDelete}
+						onOpenChange={setIsModalOpen}
+					/>
+				</>
+			)}
 		</div>
 	);
 }

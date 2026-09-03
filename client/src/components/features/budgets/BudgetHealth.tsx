@@ -8,10 +8,10 @@ function BudgetHealth({ budgetHealth }: BudgetHealthProps) {
 
 	const color =
 		budgetHealth < 75
-			? "hsla(160, 84%, 39%, 1)"
+			? "hsla(0, 84%, 60%, 1)"
 			: budgetHealth >= 75 && budgetHealth < 100
 				? "hsla(45, 93%, 47%, 1)"
-				: "hsla(0, 84%, 60%, 1)";
+				: "hsla(160, 84%, 39%, 1)";
 	return (
 		<div className="flex items-center gap-2">
 			<svg width={100} height={100} viewBox="0 0 100 100">

@@ -29,7 +29,7 @@ function SpendingByCategory({ data }: SpendingByCategoryProps) {
 					{spending.map((item) => (
 						<div key={item.name} className="flex items-center justify-between gap-2">
 							<Badge key={item.fill} name={capitalizeFirstLetter(item.name)} color={item.fill} />
-                            <p className="text-caption-lg text-text-primary">{item.percent.toFixed(0)}%</p>
+                            <p className="text-caption-lg text-text-primary">{item.percent && item.percent.toFixed(0)}%</p>
 						</div>
 					))}
 				</div>

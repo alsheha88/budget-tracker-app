@@ -28,7 +28,7 @@ type BudgetFormProps = {
 	type: "Add" | "Edit";
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<SetStateAction<boolean>>;
-	budget: Budget;
+	budget?: Budget | null;
 };
 
 function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
@@ -94,7 +94,7 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 			});
 		} else {
 			editBudget(
-				{ id: budget.id, data },
+				{ id: budget!.id, data },
 				{
 					onSuccess: () => {
 						setIsOpen(false);

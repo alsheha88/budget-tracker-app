@@ -5,8 +5,8 @@ export const createTransactionSchema = z.object({
 	description: z.string().optional(),
 	amount: z.number().positive().multipleOf(0.001).max(1_000_000),
 	type: z.enum(["Income", "Expense"]),
-	isRecurring: z.boolean(),
-	date: z.coerce.date(),
+	isRecurring: z.boolean().optional(),
+	date: z.date(),
 	notes: z.string().optional(),
 	categoryId: z.uuid(),
 	accountId: z.uuid(),
@@ -23,7 +23,7 @@ export const transferTransactionSchema = z.object({
 		message: "Cannot transfer to the same account",
 	}),
 	amount: z.number().positive().multipleOf(0.001).max(1_000_000),
-	date: z.coerce.date(),
+	date: z.date(),
 	notes: z.string().nullable(),
 });
 

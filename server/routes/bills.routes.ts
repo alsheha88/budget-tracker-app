@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", getBills);
 router.get("/stats", getBillsStats);
 router.get("/:id", getBill);
-router.post("/:id", createBill);
+router.post("/", createBill);
 router.patch("/:id/pay", markAsPaid);
 router.patch("/:id", editBill);
 router.delete("/:id", deleteBill);

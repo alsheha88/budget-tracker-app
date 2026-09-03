@@ -60,7 +60,10 @@ function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen 
 						}}>
 						Edit
 					</DropdownMenu.Item>
-					<DropdownMenu.Item className="p-2 rounded-sm hover:outline-none hover:border-none cursor-pointer hover:bg-badge-default" onClick={() => setIsModalOpen(true)}>
+					<DropdownMenu.Item className="p-2 rounded-sm hover:outline-none hover:border-none cursor-pointer hover:bg-badge-default" onClick={() => {
+							setBudget(budget);
+                            setIsModalOpen(true)
+						}}>
 						Delete
 					</DropdownMenu.Item>
 				</DropdownMenuComponent>

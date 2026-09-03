@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
 import TransactionsStats from "../../components/features/dashboard/TransactionsStats";
 import TransactionsTable from "../../components/features/transactions/TransactionsTable";
 import { useDashboard } from "../../hooks/dashboard/useDashboard";
 import { useTransactions } from "../../hooks/transactions/transactions";
 import Input from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
+import type { TransactionsResponse } from "../../../../shared/types";
+import TransactionsForm from "../../components/forms/TransactionsForms/TransactionsForm";
+
+type Transaction = TransactionsResponse["transactions"][number];
 
 function TransactionsPage() {
 	const [page, setPage] = useState(1);
 	const [searchInput, setSearchInput] = useState("");
 	const [search, setSearch] = useState("");
+	const [isFormOpen, setIsFormOpen] = useState(false);
+	const [transaction, setTransaction] = useState<Transaction | null>(null);
+	const [type, setType] = useState<"Add" | "Edit">("Add");
 	const { data } = useDashboard();
 	const { data: transactions } = useTransactions(page, search);
 	useEffect(() => {
@@ -22,7 +29,6 @@ function TransactionsPage() {
 	if (!data) return null;
 	if (!transactions) return null;
 	const { transactionsStats } = data;
-
 
 	return (
 		<div className="grid gap-6">
@@ -40,7 +46,15 @@ function TransactionsPage() {
 						value={searchInput}
 						onChange={(e) => setSearchInput(e.target.value)}
 					/>
-					<Button size="lg">Add Transaction</Button>
+					<Button
+						size="lg"
+						type="button"
+						onClick={() => {
+							setIsFormOpen(true);
+							setType("Add");
+						}}>
+						Add Transaction
+					</Button>
 				</div>
 			</div>
 			<TransactionsStats
@@ -48,7 +62,14 @@ function TransactionsPage() {
 				expenses={transactionsStats.expenses}
 				balance={transactionsStats.balance}
 			/>
-			<TransactionsTable data={transactions} page={page} setPage={setPage} />
+			<TransactionsTable
+				data={transactions}
+				page={page}
+				setPage={setPage}
+				setTransaction={setTransaction}
+				transaction={transaction!}
+			/>
+			<TransactionsForm setIsOpen={setIsFormOpen } isOpen={isFormOpen} mode={type} />
 		</div>
 	);
 }
