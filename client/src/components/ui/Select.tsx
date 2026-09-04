@@ -35,7 +35,7 @@ function SelectComponent({ label, options, placeholder, value, onValueChange ,er
 						<Select.ScrollUpButton className="text-text-primary">
 							<ChevronUp />
 						</Select.ScrollUpButton>
-						<Select.Viewport>
+						<Select.Viewport className="max-h-36">
 							{options.map((o) => (
 								<Select.Item
 									key={o.value}

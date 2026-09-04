@@ -1,4 +1,4 @@
-import { useEffect, useState, type SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import TransactionsStats from "../../components/features/dashboard/TransactionsStats";
 import TransactionsTable from "../../components/features/transactions/TransactionsTable";
 import { useDashboard } from "../../hooks/dashboard/useDashboard";
@@ -52,6 +52,7 @@ function TransactionsPage() {
 						onClick={() => {
 							setIsFormOpen(true);
 							setType("Add");
+							setTransaction(null);
 						}}>
 						Add Transaction
 					</Button>
@@ -67,9 +68,15 @@ function TransactionsPage() {
 				page={page}
 				setPage={setPage}
 				setTransaction={setTransaction}
-				transaction={transaction!}
+				setIsOpen={setIsFormOpen}
+				setMode={setType}
 			/>
-			<TransactionsForm setIsOpen={setIsFormOpen } isOpen={isFormOpen} mode={type} />
+			<TransactionsForm
+				setIsOpen={setIsFormOpen}
+				isOpen={isFormOpen}
+				mode={type}
+				transaction={transaction}
+			/>
 		</div>
 	);
 }

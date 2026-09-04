@@ -1,13 +1,11 @@
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/Button";
-import { Card } from "../../ui/Card";
 import PopoverComponent from "../../ui/Popover";
 import DatePicker from "../../ui/DatePicker";
 import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
 import Input from "../../ui/Input";
 import SelectComponent from "../../ui/Select";
 import * as Switch from "radix-ui/switch";
-import { BookOpenIcon } from "lucide-react";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
 import { useEffect, useState, type SetStateAction } from "react";
 import type { TransactionsResponse } from "../../../../../shared/types";
@@ -36,11 +34,9 @@ function IncomeExpenseForm({
 	transaction,
 	mode,
 	setIsOpen,
-	isOpen,
 	transactionType,
 }: TransactionsFormProps) {
 	const [datePickerOpen, setDatePickerOpen] = useState(false);
-	const header = mode === "Add" ? "Add Transaction" : "Edit Transaction";
 	const { mutate: addTransaction } = useCreateTransaction();
 	const { mutate: editTransaction } = useEditTransaction();
 	const { data } = useGetAccountStats();

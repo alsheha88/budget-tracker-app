@@ -14,18 +14,19 @@ type TransactionsTableProps = {
 	page: number;
 	setPage: React.Dispatch<SetStateAction<number>>;
 	setTransaction: (transaction: Transaction | null) => void;
-	transaction: Transaction;
+	setMode: React.Dispatch<SetStateAction<"Add" | "Edit">>;
+	setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
 function TransactionsTable({
 	data,
 	page,
 	setPage,
-	transaction,
 	setTransaction,
+	setIsOpen,
+	setMode,
 }: TransactionsTableProps) {
 	const skip = (page - 1) * data.limit;
-
 	const pages = getPageNumbers(page, data.totalPages);
 	const tableHeaders = [
 		"DATE",
@@ -38,7 +39,10 @@ function TransactionsTable({
 	return (
 		<Card size="xl" role="table" className="grid gap-4">
 			<div>
-				<TableHeader headers={tableHeaders} gridCol={"0.5fr_2fr_1fr_1fr_1fr"} />
+				<TableHeader
+					headers={tableHeaders}
+					gridCol={"0.5fr_2fr_1fr_1fr_1fr_0.5fr"}
+				/>
 				<hr className="text-border-default" />
 
 				{data.transactions.map((i) => (
@@ -46,6 +50,8 @@ function TransactionsTable({
 						<TransactionsRow
 							setTransaction={setTransaction}
 							transaction={i}
+							setIsOpen={setIsOpen}
+							setMode={setMode}
 						/>
 						<hr className="text-border-default" />
 					</div>
