@@ -5,16 +5,16 @@ import {
 } from "../../../schemas/accountsSchema";
 import { Card } from "../../ui/Card";
 import Input from "../../ui/Input";
-import SelectComponent from "../../ui/Select";
 import { Button } from "../../ui/Button";
 import {
 	useCreateAccount,
 	useEditAccount,
 } from "../../../hooks/accounts/useAccounts";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
 import type { AccountStatsResponse } from "../../../../../shared/types";
+import FormSelect from "../formControllers/FormSelect";
 
 type AccountItem = AccountStatsResponse["accounts"][number];
 type AccountFormData = {
@@ -26,7 +26,7 @@ type AccountFormData = {
 
 function AccountForm({ type, isOpen, setIsOpen, account }: AccountFormData) {
 	const header = type === "Add" ? "Add Account" : "Edit Account";
-	const { mutate: addAccount, isError, isPending, error } = useCreateAccount();
+	const { mutate: addAccount, isPending } = useCreateAccount();
 	const { mutate: editAccount } = useEditAccount();
 	const {
 		handleSubmit,
@@ -88,30 +88,29 @@ function AccountForm({ type, isOpen, setIsOpen, account }: AccountFormData) {
 							error={errors.name?.message}
 							{...register("name")}
 						/>
-
-						<Controller
-							name="accountType"
+						<FormSelect
 							control={control}
-							render={({ field }) => (
-								<SelectComponent
-									label={"Account Type"}
-									value={field.value}
-									onValueChange={field.onChange}
-									options={options}
-									placeholder={"Select Type"}
-									error={errors.accountType?.message}
-								/>
-							)}
+							name="accountType"
+							label="Account Type"
+							placeholder="Select Type"
+							options={options}
 						/>
-						<Input
-							type={"number"}
-							label="Starting Balance"
-							id="startingBalance"
-							error={errors.startingBalance?.message}
-							{...register("startingBalance", { valueAsNumber: true })}
-						/>
+
+						{type === "Add" && (
+							<Input
+								type={"number"}
+								label="Starting Balance"
+								id="startingBalance"
+								error={errors.startingBalance?.message}
+								{...register("startingBalance", { valueAsNumber: true })}
+							/>
+						)}
 						<div className="flex items-center gap-4 place-self-end">
-							<Button variant="primary" size="lg" type="submit">
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								disabled={isPending}>
 								{type === "Add" ? "Create" : "Save"}
 							</Button>
 							<Button
@@ -119,7 +118,7 @@ function AccountForm({ type, isOpen, setIsOpen, account }: AccountFormData) {
 								size="lg"
 								type="button"
 								onClick={() => setIsOpen(false)}>
-								Cancel{" "}
+								Cancel
 							</Button>
 						</div>
 					</form>

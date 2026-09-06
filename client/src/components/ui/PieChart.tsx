@@ -1,5 +1,6 @@
 import type { DashboardStats } from "../../../../shared/types";
 import { PieChart, Pie, ResponsiveContainer, Tooltip } from "recharts";
+import { formatKWD } from "../../lib/utils";
 
 type PieChartProps = {
 	data: DashboardStats["spendingByCategory"];
@@ -38,8 +39,8 @@ function PieChartComponent({ data }: PieChartProps) {
 				</PieChart>
 			<div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
 				<span className="text-text-secondary text-caption-lg">Spent</span>
-				<span className="text-h2 text-text-primary">
-					{spent.toFixed(1)} KWD
+				<span className="text-h4 text-text-primary">
+					{formatKWD(spent)}
 				</span>
 			</div>
 			</ResponsiveContainer>

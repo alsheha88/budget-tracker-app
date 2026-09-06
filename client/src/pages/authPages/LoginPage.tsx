@@ -8,7 +8,7 @@ function LoginPage() {
 				<h3 className="text-text-link text-h3">Sign In</h3>
 				<LoginForm />
 				<p className="text-caption-lg text-text-tertiary">
-					Don't have an account?{" "}
+					Don't have an account?
 					<NavLink to={"/signup"} className={"text-toggle-on"}>
 						Create account
 					</NavLink>

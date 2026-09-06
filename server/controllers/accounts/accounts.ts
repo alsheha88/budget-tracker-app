@@ -111,7 +111,7 @@ export const deleteAccount: RequestHandler = async (req, res) => {
 		const deletedAccount = await dbDeleteAccount(id, userId);
 		res
 			.status(200)
-			.json({ message: `${deletedAccount.count} account deleted` });
+			.json({ data: { message: `${deletedAccount.count} account deleted` } });
 	} catch (err) {
 		if (
 			err instanceof Prisma.PrismaClientKnownRequestError &&
@@ -125,10 +125,10 @@ export const deleteAccount: RequestHandler = async (req, res) => {
 	}
 };
 
-export const getAccountStats:RequestHandler = async (req, res) => {
+export const getAccountStats: RequestHandler = async (req, res) => {
 	const userId = req.user.id;
 
 	const accountStats = await dbGetAccountStats(userId);
 
-	res.status(200).json({data: {accountStats}})
-} 
+	res.status(200).json({ data: { accountStats } });
+};

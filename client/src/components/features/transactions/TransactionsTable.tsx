@@ -59,7 +59,7 @@ function TransactionsTable({
 			</div>
 			<div className="flex items-center justify-between">
 				<p className="text-caption-lg text-input-placeholder">
-					Showing {skip + 1} - {Math.min(skip + data.limit, data.count)} of{" "}
+					Showing {skip + 1} - {Math.min(skip + data.limit, data.count)} of
 					{data.count} transactions
 				</p>
 				<div className="flex items-center gap-2">

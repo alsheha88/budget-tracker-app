@@ -2,7 +2,7 @@ import { BookOpenIcon } from "lucide-react";
 import { Button } from "../../ui/Button";
 import { Card } from "../../ui/Card";
 import Input from "../../ui/Input";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	formContributionSchema,
@@ -11,8 +11,8 @@ import {
 import { useCreateContribution } from "../../../hooks/savings/savings";
 import type { SetStateAction } from "react";
 import type { SavingsResponse } from "../../../../../shared/types";
-import SelectComponent from "../../ui/Select";
 import { useGetAccountStats } from "../../../hooks/accounts/useAccounts";
+import FormSelect from "../formControllers/FormSelect";
 
 type SavingsItem = SavingsResponse["savings"][number];
 type ContributionFormData = {
@@ -43,8 +43,8 @@ function ContributionForm({
 	} = useForm<FormContributionData>({
 		resolver: zodResolver(formContributionSchema),
 		defaultValues: {
-			accountId: "", 
-			amount: 0, 
+			accountId: "",
+			amount: 0,
 		},
 	});
 
@@ -69,11 +69,7 @@ function ContributionForm({
 					</div>
 					<hr className="mt-6 mb-6 text-border-default" />
 
-					<form
-						className="grid gap-5 "
-						onSubmit={handleSubmit(onSubmit, (errors) =>
-							console.log("VALIDATION FAILED:", errors),
-						)}>
+					<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type={"number"}
 							label="Amount"
@@ -82,20 +78,7 @@ function ContributionForm({
 							{...register("amount", { valueAsNumber: true })}
 						/>
 
-						<Controller
-							name="accountId"
-							control={control}
-							render={({ field }) => (
-								<SelectComponent
-									label={"Select Account"}
-									value={field.value}
-									onValueChange={field.onChange}
-									options={options!}
-									placeholder={"Select Account"}
-									error={errors.accountId?.message}
-								/>
-							)}
-						/>
+						<FormSelect label="Payment Account" placeholder="Select Account" name="accountId" options={options!} control={control} />
 
 						<div className="flex items-center gap-4 place-self-end">
 							<Button variant="primary" size="lg" type="submit">
@@ -106,7 +89,7 @@ function ContributionForm({
 								size="lg"
 								type="button"
 								onClick={() => setIsOpen(false)}>
-								Cancel{" "}
+								Cancel
 							</Button>
 						</div>
 					</form>

@@ -49,3 +49,9 @@ export const getPageNumbers = (
 		return [1, dots, ...range(leftSibling, rightSibling), dots, totalPages]; // middle
 	}
 };
+
+export const formatKWD = (amount: number) =>
+	new Intl.NumberFormat("en-KW", {
+		style: "currency",
+		currency: "KWD",
+	}).format(amount);

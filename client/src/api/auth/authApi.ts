@@ -15,5 +15,5 @@ export const signup = async (data: SignUpPayload) => {
 export const logout = async () => {
     const res = await api.post("/logout");
 
-    return res.data;
+    return res.data.data.message;
 }

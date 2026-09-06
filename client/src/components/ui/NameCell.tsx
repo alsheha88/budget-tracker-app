@@ -1,4 +1,4 @@
-import Badge  from "./Badge";
+import Badge from "./Badge";
 import { getCategoryIcon } from "../../lib/icons";
 import { capitalizeFirstLetter } from "../../lib/utils";
 
@@ -12,7 +12,11 @@ function NameCell({ name, color, category }: Props) {
 	const Icon = getCategoryIcon(category);
 	return (
 		<div className="flex items-center gap-3">
-			<div className="w-10 h-10 flex items-center justify-center rounded-sm bg-surface-active">
+			<div
+				className="w-10 h-10 flex items-center justify-center rounded-sm"
+				style={{
+					backgroundColor: `${color || "#10B981"}26`,
+				}}>
 				<Icon color={color} size={18} />
 			</div>
 			<div className="flex flex-col gap-1">

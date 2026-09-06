@@ -7,7 +7,7 @@ function SignupPage() {
 			<h3 className="text-text-link text-h3">Sign Up</h3>
 			<SignupForm />
 			<p className="text-caption-lg text-text-tertiary">
-				Have an account?{" "}
+				Have an account?
 				<NavLink to={"/login"} className={"text-toggle-on"}>
 					Log in
 				</NavLink>

@@ -23,15 +23,8 @@ export const editAccount = async ({
 	data,
 }: {
 	id: IdParamsType;
-	data: EditAccountData;
+	data: CreateAccountData;
 }) => {
 	const res = await api.patch(`/accounts/${id}`, data);
-
 	return res.data.data.account;
-};
-
-export const deleteAccount = async (id: IdParamsType) => {
-	const res = await api.delete(`/accounts/${id}`);
-
-	return res.data.data;
 };

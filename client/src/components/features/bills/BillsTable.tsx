@@ -21,7 +21,9 @@ function BillsTable({
 	setType,
 	setBill,
 }: BillsTableProps) {
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const { data: categories } = useGetCategories();
+
 	const tableHeaders = [
 		"Provider / Bill Name",
 		"Amount",
@@ -53,6 +55,8 @@ function BillsTable({
 								setType={setType}
 								setBill={setBill}
 								bill={i}
+								setIsModalOpen={setIsModalOpen}
+								isModalOpen={isModalOpen}
 							/>
 							<hr className="text-border-default" />
 						</div>

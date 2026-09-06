@@ -1,12 +1,9 @@
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/Button";
 import { Card } from "../../ui/Card";
-import SelectComponent from "../../ui/Select";
-import PopoverComponent from "../../ui/Popover";
-import DatePicker from "../../ui/DatePicker";
 import Input from "../../ui/Input";
 import { BookOpenIcon } from "lucide-react";
-import { useEffect, useState, type SetStateAction } from "react";
+import { useEffect, type SetStateAction } from "react";
 import type { BudgetsStatsResponse } from "../../../../../shared/types";
 import {
 	createBudgetSchema,
@@ -14,14 +11,14 @@ import {
 } from "../../../schemas/BudgetsSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
-import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
+import { capitalizeFirstLetter } from "../../../lib/utils";
 import {
 	useCreateBudget,
 	useEditBudget,
 } from "../../../hooks/budgets/useBudgets";
 import CheckboxComponent from "../../ui/Checkbox";
-import SliderComponent from "../../ui/Slider";
-import { getApiErrorMessage } from "../../../lib/api";
+import FormSelect from "../formControllers/FormSelect";
+import FormDatePicker from "../formControllers/FormDatePicker";
 
 type Budget = BudgetsStatsResponse["budgetStats"][number];
 type BudgetFormProps = {
@@ -32,7 +29,6 @@ type BudgetFormProps = {
 };
 
 function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
-	const [datePickerOpen, setDatePickerOpen] = useState(false);
 	const header = type === "Add" ? "Add Budget" : "Edit Budget";
 	const { mutate: addBudget } = useCreateBudget();
 	const { mutate: editBudget } = useEditBudget();
@@ -88,9 +84,6 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 				onSuccess: () => {
 					setIsOpen(false);
 				},
-				onError: (e) => {
-					console.log(getApiErrorMessage(e));
-				},
 			});
 		} else {
 			editBudget(
@@ -114,11 +107,7 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 					</div>
 					<hr className="mt-6 mb-6 text-border-default" />
 
-					<form
-						className="grid gap-5 "
-						onSubmit={handleSubmit(onSubmit, (errors) =>
-							console.log("VALIDATION FAILED:", errors),
-						)}>
+					<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type={"text"}
 							label="Budget Name"
@@ -127,36 +116,22 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 							{...register("name")}
 						/>
 						{type === "Add" && (
-							<Controller
-								name="categoryId"
-								control={control}
-								render={({ field }) => (
-									<>
-										<SelectComponent
-											label={"Category"}
-											value={field.value}
-											onValueChange={field.onChange}
-											options={categoryOptions}
-											placeholder={"Select Category"}
-											error={errors.categoryId?.message}
-										/>
-										<Controller
-											name="period"
-											control={control}
-											render={({ field }) => (
-												<SelectComponent
-													label={"Period"}
-													value={field.value}
-													onValueChange={field.onChange}
-													options={periodOptions}
-													placeholder={"Select Period"}
-													error={errors.period?.message}
-												/>
-											)}
-										/>
-									</>
-								)}
-							/>
+							<>
+								<FormSelect
+									label="Category"
+									placeholder="Select Category"
+									name="categoryId"
+									options={categoryOptions}
+									control={control}
+								/>
+								<FormSelect
+									label="Period"
+									placeholder="Select Period"
+									name="period"
+									options={periodOptions}
+									control={control}
+								/>
+							</>
 						)}
 						<Input
 							type="number"
@@ -165,48 +140,13 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 							error={errors.limit?.message}
 							{...register("limit", { valueAsNumber: true })}
 						/>
-						<div className="grid gap-1.5">
-							<label className="text-sidebar-foreground text-caption-lg">
-								Start Date
-							</label>
-							<Controller
-								name="startDate"
-								control={control}
-								render={({ field }) => {
-									return (
-										<PopoverComponent
-											open={datePickerOpen}
-											onOpenChange={setDatePickerOpen}
-											triggerContent={
-												field.value
-													? formatDateShort(field.value.toLocaleDateString())
-													: "Select Date"
-											}>
-											<DatePicker
-												selected={field.value!}
-												setSelected={(date) => {
-													field.onChange(date);
-													setDatePickerOpen(false);
-												}}
-											/>
-										</PopoverComponent>
-									);
-								}}
-							/>
-						</div>
-
-						<Controller
+						<FormDatePicker name="startDate" control={control} label="Start Date" />
+						<FormSelect
+							label="Alert Threshold"
+							placeholder="Monthly"
 							name="alertThreshold"
+							options={periodOptions}
 							control={control}
-							render={({ field }) => {
-								return (
-									<SliderComponent
-										label={"Alert Threshold"}
-										value={[field.value]}
-										onValueChange={(val) => field.onChange(val[0])}
-									/>
-								);
-							}}
 						/>
 						<Controller
 							name="rollover"

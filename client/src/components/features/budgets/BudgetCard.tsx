@@ -8,17 +8,24 @@ import type { BudgetsStatsResponse } from "../../../../../shared/types";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
 import { getCategoryIcon } from "../../../lib/icons";
 import type { SetStateAction } from "react";
+import { formatKWD } from "../../../lib/utils";
 
 type Budget = BudgetsStatsResponse["budgetStats"][number];
 type BudgetCardProps = {
 	budget: Budget;
 	setBudget: (budget: Budget | null) => void;
 	setType: (type: "Add" | "Edit") => void;
-    setIsFormOpen: React.Dispatch<SetStateAction<boolean>>;
-    setIsModalOpen: React.Dispatch<SetStateAction<boolean>>;
+	setIsFormOpen: React.Dispatch<SetStateAction<boolean>>;
+	setIsModalOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
-function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen }: BudgetCardProps) {
+function BudgetCard({
+	budget,
+	setBudget,
+	setType,
+	setIsFormOpen,
+	setIsModalOpen,
+}: BudgetCardProps) {
 	const { data: categories } = useGetCategories();
 	const category = categories?.find((i) => i.id === budget.categoryId);
 	if (!category) return null;
@@ -34,7 +41,11 @@ function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen 
 		<Card className="grid gap-4">
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-3">
-					<div className="w-10 h-10 flex items-center justify-center rounded-sm bg-surface-active">
+					<div
+						className="w-10 h-10 flex items-center justify-center rounded-sm"
+						style={{
+							backgroundColor: `${category.color || "#10B981"}26`,
+						}}>
 						<Icon
 							color={category.color || "hsla(160, 84%, 39%, 1)"}
 							size={18}
@@ -56,13 +67,15 @@ function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen 
 						onClick={() => {
 							setType("Edit");
 							setBudget(budget);
-                            setIsFormOpen(true)
+							setIsFormOpen(true);
 						}}>
 						Edit
 					</DropdownMenu.Item>
-					<DropdownMenu.Item className="p-2 rounded-sm hover:outline-none hover:border-none cursor-pointer hover:bg-badge-default" onClick={() => {
+					<DropdownMenu.Item
+						className="p-2 rounded-sm hover:outline-none hover:border-none cursor-pointer hover:bg-badge-default"
+						onClick={() => {
 							setBudget(budget);
-                            setIsModalOpen(true)
+							setIsModalOpen(true);
 						}}>
 						Delete
 					</DropdownMenu.Item>
@@ -77,7 +90,7 @@ function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen 
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between">
 					<p className="text-caption-lg text-sidebar-foreground">
-						KWD {budget.spent.toFixed(1)} / {Number(budget.limit).toFixed(1)}
+						{formatKWD(budget.spent)} / {formatKWD(Number(budget.limit))}
 					</p>
 					<p style={{ color: progressColor, fontSize: "var(--fs-caption-lg)" }}>
 						{budget.percent.toFixed(0)}%
@@ -90,7 +103,7 @@ function BudgetCard({ budget, setBudget, setType, setIsFormOpen, setIsModalOpen 
 				<p className="text-caption-lg text-sidebar-foreground">Remaining</p>
 				<span
 					className={`text-button-md ${budget.remainingBalance < 0 ? "text-interactive-destructive" : "text-text-primary"} `}>
-					KWD {budget.remainingBalance.toFixed(1)}
+					{formatKWD(budget.remainingBalance)}
 				</span>
 			</div>
 		</Card>

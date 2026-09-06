@@ -11,11 +11,11 @@ function SavingsCard({ name, saved, target, percentage }: SavingsCardProps) {
 	const circumference = 2 * Math.PI * 40;
 	const offset = circumference * (1 - percentage / 100);
 	const color =
-		percentage < 75
-			? "hsla(160, 84%, 39%, 1)"
-			: percentage >= 75 && percentage < 100
+		percentage < 25
+			? "hsla(0, 84%, 60%, 1)"
+			: percentage >= 25 && percentage < 75
 				? "hsla(45, 93%, 47%, 1)"
-				: "hsla(0, 84%, 60%, 1)";
+				: "hsla(160, 84%, 39%, 1)";
 	return (
 		<Card size="md" className="flex items-center gap-3">
 			<svg width={100} height={100} viewBox="0 0 100 100">

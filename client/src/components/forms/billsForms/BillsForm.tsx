@@ -1,35 +1,32 @@
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/Button";
 import { Card } from "../../ui/Card";
-import PopoverComponent from "../../ui/Popover";
-import DatePicker from "../../ui/DatePicker";
-import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
+import { capitalizeFirstLetter } from "../../../lib/utils";
 import Input from "../../ui/Input";
-import SelectComponent from "../../ui/Select";
 import { BookOpenIcon } from "lucide-react";
 import { useCreateBill, useEditBill } from "../../../hooks/bills/bills";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
-import { useEffect, useState, type SetStateAction } from "react";
+import { useEffect, type SetStateAction } from "react";
 import {
 	createBillSchema,
 	type CreateBillData,
 } from "../../../schemas/billsSchema";
 import type { BillsStatsRespoonse } from "../../../../../shared/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getApiErrorMessage } from "../../../lib/api";
 import { useGetAccountStats } from "../../../hooks/accounts/useAccounts";
+import FormSelect from "../formControllers/FormSelect";
+import FormDatePicker from "../formControllers/FormDatePicker";
 
 type Bill = BillsStatsRespoonse["bills"][number];
 type BillsFormProps = {
 	type: "Add" | "Edit";
 	bill: Bill | null;
-	setIsOpen: React.Dispatch<SetStateAction<boolean>>;
-	isOpen: boolean;
+	setIsFormOpen: React.Dispatch<SetStateAction<boolean>>;
+	isFormOpen: boolean;
+
 };
 
-function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
-	const [datePickerOpen, setDatePickerOpen] = useState(false);
-	console.log(new Date());
+function BillsForm({ bill, type, setIsFormOpen, isFormOpen }: BillsFormProps) {
 	const header = type === "Add" ? "Add Bill" : "Edit Bill";
 	const { mutate: addBill } = useCreateBill();
 	const { mutate: editBill } = useEditBill();
@@ -90,10 +87,7 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 		if (type === "Add") {
 			addBill(data, {
 				onSuccess: () => {
-					setIsOpen(false);
-				},
-				onError: (e) => {
-					console.log(getApiErrorMessage(e));
+					setIsFormOpen(false);
 				},
 			});
 		} else {
@@ -101,7 +95,7 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 				{ id: bill!.id, data },
 				{
 					onSuccess: () => {
-						setIsOpen(false);
+						setIsFormOpen(false);
 					},
 				},
 			);
@@ -109,7 +103,7 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 	};
 
 	return (
-		isOpen && (
+		isFormOpen && (
 			<div className="fixed inset-0 bg-black/50 flex items-center justify-center">
 				<Card size="xl" className="grid w-full max-w-sm">
 					<div className="flex items-center gap-3">
@@ -118,11 +112,7 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 					</div>
 					<hr className="mt-6 mb-6 text-border-default" />
 
-					<form
-						className="grid gap-5 "
-						onSubmit={handleSubmit(onSubmit, (errors) =>
-							console.log("VALIDATION FAILED:", errors),
-						)}>
+					<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type={"text"}
 							label="Bill Name"
@@ -144,82 +134,10 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 							error={errors.amount?.message}
 							{...register("amount", { valueAsNumber: true })}
 						/>
-
-						<Controller
-							name="categoryId"
-							control={control}
-							render={({ field }) => (
-								<>
-									<SelectComponent
-										label={"Category"}
-										value={field.value!}
-										onValueChange={field.onChange}
-										options={categoryOptions}
-										placeholder={"Select Category"}
-										error={errors.categoryId?.message}
-									/>
-								</>
-							)}
-						/>
-						<Controller
-							name="frequency"
-							control={control}
-							render={({ field }) => (
-								<SelectComponent
-									label={"Billing Frequency"}
-									value={field.value}
-									onValueChange={field.onChange}
-									options={frequencyOptions}
-									placeholder={"Monthly"}
-									error={errors.frequency?.message}
-								/>
-							)}
-						/>
-						<Controller
-							name="accountId"
-							control={control}
-							render={({ field }) => (
-								<SelectComponent
-									label={"Payment Account"}
-									value={field.value!}
-									onValueChange={field.onChange}
-									options={accountsOptions}
-									placeholder={"Select Account"}
-									error={errors.accountId?.message}
-								/>
-							)}
-						/>
-
-						<div className="grid gap-1.5">
-							<label className="text-sidebar-foreground text-caption-lg">
-								Next Due Date
-							</label>
-							<Controller
-								name="dueDate"
-								control={control}
-								render={({ field }) => {
-									return (
-										<PopoverComponent
-											open={datePickerOpen}
-											onOpenChange={setDatePickerOpen}
-											triggerContent={
-												field.value
-													? formatDateShort(field.value.toLocaleString())
-													: "Select Date"
-											}>
-											<DatePicker
-												selected={field.value!}
-												setSelected={(date) => {
-													field.onChange(date);
-													setDatePickerOpen(false);
-												}}
-											/>
-										</PopoverComponent>
-									);
-								}}
-							/>
-						</div>
-
+						<FormSelect label="Category" placeholder="Select Category" name="categoryId" options={categoryOptions} control={control} />
+						<FormSelect label="Billing Frequency" placeholder="Monthly" name="frequency" options={frequencyOptions} control={control} />
+						<FormSelect label="Payment Account" placeholder="Select Account" name="accountId" options={accountsOptions} control={control} />
+						<FormDatePicker name="dueDate" control={control} label="Next Due Date" />
 						<div className="flex items-center gap-4 place-self-end">
 							<Button variant="primary" size="lg" type="submit">
 								{type === "Add" ? "Create" : "Save"}
@@ -228,7 +146,7 @@ function BillsForm({ bill, type, setIsOpen, isOpen }: BillsFormProps) {
 								variant="secondary"
 								size="lg"
 								type="button"
-								onClick={() => setIsOpen(false)}>
+								onClick={() => setIsFormOpen(false)}>
 								Cancel
 							</Button>
 						</div>

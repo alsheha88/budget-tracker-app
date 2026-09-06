@@ -39,7 +39,7 @@ export const editTransaction = async ({
 export const deleteTransaction = async (id: IdParamsType) => {
 	const res = await api.delete(`/transactions/${id}`);
 
-	return res.data.message;
+	return res.data.data.message;
 };
 export const createTransfer = async (data: TransferTransactionData) => {
 	const res = await api.post(`/transactions/transfer`, data);

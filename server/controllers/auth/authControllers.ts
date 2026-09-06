@@ -124,7 +124,7 @@ export const logout: RequestHandler = async (req, res) => {
 		sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 	});
 
-	res.status(200).json({ message: "Logged out successfully" });
+	res.status(200).json({ data: { message: "Logged out successfully" } });
 };
 
 export const verifyEmail: RequestHandler = async (req, res) => {
@@ -147,7 +147,7 @@ export const verifyEmail: RequestHandler = async (req, res) => {
 
 	await verifyUser(updateVerification.userId);
 
-	res.status(200).json("Email verified successfully");
+	res.status(200).json({ data: { message: "Email verified successfully" } });
 };
 
 export const refresh: RequestHandler = async (req, res) => {

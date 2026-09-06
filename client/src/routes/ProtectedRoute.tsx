@@ -5,7 +5,6 @@ import { getApiErrorMessage } from "../lib/api";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
 	const { isError, isLoading, error } = useGetUser();
-	console.log(getApiErrorMessage(error))
 
 	if (isLoading)
 		return (

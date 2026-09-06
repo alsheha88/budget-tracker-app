@@ -14,7 +14,6 @@ export const useLogin = () => {
 			navigate("/dashboard");
 		},
 		onError: (e) => {
-			console.log(e);
 		},
 	});
 };
@@ -27,7 +26,6 @@ export const useSignup = () => {
 			navigate("/verify-email");
 		},
 		onError: (e) => {
-			console.log(e);
 		},
 	});
 };
@@ -42,7 +40,6 @@ export const useLogout = () => {
 			navigate("/login");
 		},
 		onError: (e) => {
-			console.log(e);
 		},
 	});
 };

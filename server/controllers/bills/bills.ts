@@ -59,7 +59,7 @@ export const markAsPaid: RequestHandler = async (req, res) => {
 	const paidBill = await dbMarkAsPaid(id, userId);
 	if (!paidBill.count) throw new NotFoundError("Couldn't update bill");
 
-	res.status(200).json({ message: "Bill updated successfully" });
+	res.status(200).json({ data: { message: "Bill updated successfully" } });
 };
 
 export const deleteBill: RequestHandler = async (req, res) => {
@@ -75,7 +75,7 @@ export const deleteBill: RequestHandler = async (req, res) => {
 	const bill = await dbDeleteBill(userId, id);
 	if (!bill.count) throw new NotFoundError("Couldn't delete bill");
 
-	res.status(200).json({ message: "Bill deleted successfully" });
+	res.status(200).json({ data: { message: "Bill deleted successfully" } });
 };
 export const getBill: RequestHandler = async (req, res) => {
 	const userId = req.user.id;
@@ -99,7 +99,6 @@ export const getBills: RequestHandler = async (req, res) => {
 
 	res.status(200).json({ data: { bills } });
 };
-
 
 export const getBillsStats: RequestHandler = async (req, res) => {
 	const userId = req.user.id;

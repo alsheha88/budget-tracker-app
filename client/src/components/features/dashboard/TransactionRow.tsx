@@ -1,4 +1,4 @@
-import { formatDateShort } from "../../../lib/utils";
+import { formatDateShort, formatKWD } from "../../../lib/utils";
 import NameCell from "../../ui/NameCell";
 
 type ListProps = {
@@ -27,7 +27,7 @@ function TransactionRow({
 							amount > 0 ? "hsla(160, 84%, 39%, 1)" : "hsla(0, 84%, 60%, 1)",
 						textAlign: "end",
 					}}>
-					{amount.toFixed(1)} KWD
+					{formatKWD(amount)}
 				</p>
 				<p className="text-caption-md text-text-secondary text-end">
 					{formatDateShort(date)}

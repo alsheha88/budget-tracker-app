@@ -1,5 +1,5 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
+import {  useForm, type SubmitHandler } from "react-hook-form";
 import {
 	useCreateSavings,
 	useEditSavings,
@@ -13,11 +13,9 @@ import {
 	createSavingsSchema,
 	type CreateSavingsData,
 } from "../../../schemas/savingsSchema";
-import SelectComponent from "../../ui/Select";
 import { Button } from "../../ui/Button";
-import DatePicker from "../../ui/DatePicker";
-import PopoverComponent from "../../ui/Popover";
-import { formatDateShort } from "../../../lib/utils";
+import FormSelect from "../formControllers/FormSelect";
+import FormDatePicker from "../formControllers/FormDatePicker";
 
 type SavingsItem = SavingsResponse["savings"][number];
 type SavingsFormData = {
@@ -28,7 +26,6 @@ type SavingsFormData = {
 };
 
 function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
-	const [datePickerOpen, setDatePickerOpen] = useState(false);
 	const { mutate: addSavings } = useCreateSavings();
 	const { mutate: editSavings } = useEditSavings();
 	const {
@@ -100,11 +97,7 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 					</div>
 					<hr className="mt-6 mb-6 text-border-default" />
 
-					<form
-						className="grid gap-5 "
-						onSubmit={handleSubmit(onSubmit, (errors) =>
-							console.log("VALIDATION FAILED:", errors),
-						)}>
+					<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type={"text"}
 							label="Goal Name"
@@ -126,51 +119,14 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 							error={errors.target?.message}
 							{...register("target", { valueAsNumber: true })}
 						/>
-						<div className="grid gap-1.5">
-							<label className="text-sidebar-foreground text-caption-lg">
-								Select Date
-							</label>
-							<Controller
-								name="targetDate"
-								control={control}
-								render={({ field }) => {
-									return (
-										<PopoverComponent
-											open={datePickerOpen}
-											onOpenChange={setDatePickerOpen}
-											triggerContent={
-												field.value
-													? formatDateShort(field.value.toLocaleDateString())
-													: "Select Date"
-											}>
-											<DatePicker
-												selected={field.value!}
-												setSelected={(date) => {
-													field.onChange(date);
-													setDatePickerOpen(false);
-												}}
-											/>
-										</PopoverComponent>
-									);
-								}}
-							/>
-						</div>
-
-						<Controller
+						<FormDatePicker name="targetDate" control={control} label="Select Date" />
+						<FormSelect
+							label="Priority"
+							placeholder="Select Priority"
 							name="priority"
+							options={options}
 							control={control}
-							render={({ field }) => (
-								<SelectComponent
-									label={"Priority"}
-									value={field.value}
-									onValueChange={field.onChange}
-									options={options}
-									placeholder={"Select Priority"}
-									error={errors.priority?.message}
-								/>
-							)}
 						/>
-
 						<div className="flex items-center gap-4 place-self-end">
 							<Button variant="primary" size="lg" type="submit">
 								{type === "Add" ? "Create" : "Save"}
@@ -180,7 +136,7 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 								size="lg"
 								type="button"
 								onClick={() => setIsOpen(false)}>
-								Cancel{" "}
+								Cancel
 							</Button>
 						</div>
 					</form>

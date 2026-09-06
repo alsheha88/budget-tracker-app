@@ -1,12 +1,21 @@
+// React hooks imports
 import { useEffect, useState } from "react";
+// Components imports
 import TransactionsStats from "../../components/features/dashboard/TransactionsStats";
 import TransactionsTable from "../../components/features/transactions/TransactionsTable";
-import { useDashboard } from "../../hooks/dashboard/useDashboard";
-import { useTransactions } from "../../hooks/transactions/transactions";
+import TransactionsForm from "../../components/forms/TransactionsForms/TransactionsForm";
+import LoadingState from "../../components/state/LoadingState";
 import Input from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
+import ErrorState from "../../components/state/ErrorState";
+import EmptyState from "../../components/state/EmptyState";
+// Icons imports
+import { ListTodo, Search } from "lucide-react";
+// Custom hooks imports
+import { useDashboard } from "../../hooks/dashboard/useDashboard";
+import { useTransactions } from "../../hooks/transactions/transactions";
+// Types imports
 import type { TransactionsResponse } from "../../../../shared/types";
-import TransactionsForm from "../../components/forms/TransactionsForms/TransactionsForm";
 
 type Transaction = TransactionsResponse["transactions"][number];
 
@@ -17,8 +26,13 @@ function TransactionsPage() {
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [transaction, setTransaction] = useState<Transaction | null>(null);
 	const [type, setType] = useState<"Add" | "Edit">("Add");
-	const { data } = useDashboard();
-	const { data: transactions } = useTransactions(page, search);
+	const { data, isError: statsError, isPending: statsPending } = useDashboard();
+	const {
+		data: transactions,
+		isError,
+		isPending,
+		refetch,
+	} = useTransactions(page, search);
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setSearch(searchInput);
@@ -26,8 +40,17 @@ function TransactionsPage() {
 		}, 300);
 		return () => clearTimeout(timer);
 	}, [searchInput]);
-	if (!data) return null;
-	if (!transactions) return null;
+	if (isPending || statsPending) return <LoadingState />;
+	if (isError || statsError)
+		return (
+			<>
+				<ErrorState
+					title="Something Went Wrong"
+					message="We couldn't load your transactions"
+					onAction={refetch}
+				/>
+			</>
+		);
 	const { transactionsStats } = data;
 
 	return (
@@ -58,19 +81,42 @@ function TransactionsPage() {
 					</Button>
 				</div>
 			</div>
-			<TransactionsStats
-				income={transactionsStats.income}
-				expenses={transactionsStats.expenses}
-				balance={transactionsStats.balance}
-			/>
-			<TransactionsTable
-				data={transactions}
-				page={page}
-				setPage={setPage}
-				setTransaction={setTransaction}
-				setIsOpen={setIsFormOpen}
-				setMode={setType}
-			/>
+			{transactions.count === 0 ? (
+				search ? (
+					<EmptyState
+						icon={<Search />}
+						title="No results"
+						message={`No transactions match "${search}"`}
+					/>
+				) : (
+					<EmptyState
+						icon={<ListTodo />}
+						title="No transactions added"
+						message=""
+						btnText="Add Transaction"
+						onAction={() => {
+							setIsFormOpen(true);
+							setType("Add");
+						}}
+					/>
+				)
+			) : (
+				<>
+					<TransactionsStats
+						income={transactionsStats.income}
+						expenses={transactionsStats.expenses}
+						balance={transactionsStats.balance}
+					/>
+					<TransactionsTable
+						data={transactions}
+						page={page}
+						setPage={setPage}
+						setTransaction={setTransaction}
+						setIsOpen={setIsFormOpen}
+						setMode={setType}
+					/>
+				</>
+			)}
 			<TransactionsForm
 				setIsOpen={setIsFormOpen}
 				isOpen={isFormOpen}

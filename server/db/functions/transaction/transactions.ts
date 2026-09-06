@@ -90,7 +90,18 @@ export const dbGetRecentTransactions = async (userId: string) => {
 };
 
 export const dbDeleteTransaction = async (id: string, userId: string) => {
-	return await prisma.transaction.deleteMany({ where: { id, userId } });
+	const transaction = await prisma.transaction.findFirst({
+		where: { id, userId },
+	});
+	if (!transaction) return null;
+
+	if (transaction.transferGroupId) {
+		return await prisma.transaction.deleteMany({
+			where: { transferGroupId: transaction.transferGroupId, userId },
+		});
+	} else {
+		return await prisma.transaction.deleteMany({ where: { id, userId } });
+	}
 };
 
 export const createTransaction = async (
@@ -205,5 +216,3 @@ export const dbCreateContribution = async (
 		},
 	});
 };
-
-

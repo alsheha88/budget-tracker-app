@@ -17,9 +17,7 @@ import {
 } from "../../db/functions/budget/budgets.js";
 import { Prisma } from "../../db/generated/prisma/client.js";
 import { idParamsSchema } from "../../schemas/user/user.js";
-import {
-	dbGetBudgetStats,
-} from "../../db/functions/stats/stats.js";
+import { dbGetBudgetStats } from "../../db/functions/stats/stats.js";
 
 export const createBudget: RequestHandler = async (req, res) => {
 	const validateRequest = createBudgetSchema.safeParse(req.body);
@@ -107,7 +105,7 @@ export const deleteBudget: RequestHandler = async (req, res) => {
 
 	if (!budget.count) throw new NotFoundError("Couldn't delete budget");
 
-	res.status(200).json({ message: "Budget deleted succesfully" });
+	res.status(200).json({ data: { message: "Budget deleted succesfully" } });
 };
 
 export const getBudgetsStats: RequestHandler = async (req, res) => {

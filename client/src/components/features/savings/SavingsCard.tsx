@@ -93,15 +93,15 @@ function SavingsCard({
 				<ProgressBar progress={data.percent} color={data.color} />
 				<div className="flex items-center justify-between">
 					<p className="text-caption-lg text-sidebar-foreground">
-						Saved:{" "}
+						Saved:
 						<span className="text-button-md text-text-primary">
-							KWD {data.saved}
+							{data.saved}
 						</span>
 					</p>
 					<p className="text-caption-lg text-sidebar-foreground">
-						Target:{" "}
+						Target:
 						<span className="text-button-md text-text-primary">
-							KWD {Number(data.target)}
+							{Number(data.target)}
 						</span>
 					</p>
 				</div>
@@ -109,7 +109,7 @@ function SavingsCard({
 			<hr className="text-border-default" />
 			<div className="flex items-center justify-between">
 				<p className="text-caption-lg text-sidebar-foreground">
-					Est. Date:{" "}
+					Est. Date:
 					<span className="text-button-md text-text-primary">
 						{formatDateShort(new Date(data.targetDate!).toDateString())}
 					</span>

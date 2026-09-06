@@ -1,9 +1,10 @@
+
 import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
 import { getCategoryIcon } from "../../../lib/icons";
 import Badge from "../../ui/Badge";
 import type { TransactionsResponse } from "../../../../../shared/types";
 import { Button } from "../../ui/Button";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, ArrowLeftRight } from "lucide-react";
 import { useState, type SetStateAction } from "react";
 import { useDeleteTransaction } from "../../../hooks/transactions/transactions";
 import Modal from "../../ui/Modal";
@@ -17,15 +18,22 @@ type TransactionsRowProps = {
 	setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
+const TRANSFER_COLOR = "#10B981";
+
 function TransactionsRow({
 	transaction,
 	setIsOpen,
 	setMode,
 	setTransaction,
 }: TransactionsRowProps) {
+	const isTransfer = transaction.type === "Transfer";
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const Icon = getCategoryIcon(transaction.category?.name!);
+	const Icon = getCategoryIcon(transaction.category?.name ?? "");
 	const { mutate: deleteTransaction } = useDeleteTransaction();
+
+	const iconColor = isTransfer
+		? TRANSFER_COLOR
+		: transaction.category?.color ?? "#10B981";
 
 	return (
 		<div
@@ -34,13 +42,17 @@ function TransactionsRow({
 			<p className="text-caption-lg text-sidebar-foreground">
 				{formatDateShort(transaction.date.toString())}
 			</p>
+
+			{/* Icon + merchant */}
 			<div className="flex items-center gap-3">
 				<div
 					className="w-10 h-10 flex items-center justify-center rounded-sm"
-					style={{
-						backgroundColor: `${transaction.category?.color || "#10B981"}26`,
-					}}>
-					<Icon color={transaction.category?.color || "#10B981"} size={18} />
+					style={{ backgroundColor: `${iconColor}26` }}>
+					{isTransfer ? (
+						<ArrowLeftRight color={TRANSFER_COLOR} size={16} />
+					) : (
+						<Icon color={iconColor} size={16} />
+					)}
 				</div>
 				<div className="flex flex-col gap-1">
 					<p className="text-button-md text-text-primary">
@@ -51,16 +63,24 @@ function TransactionsRow({
 					</p>
 				</div>
 			</div>
-			<Badge
-				name={capitalizeFirstLetter(transaction.category?.name!)}
-				color={transaction.category?.color!}
-			/>
+
+			{/* Category / Transfer badge */}
+			{isTransfer ? (
+				<Badge name="Transfer" color={TRANSFER_COLOR} />
+			) : (
+				<Badge
+					name={capitalizeFirstLetter(transaction.category?.name ?? "")}
+					color={transaction.category?.color ?? "#6b7280"}
+				/>
+			)}
+
 			<p className="text-caption-lg text-sidebar-foreground">
 				{transaction.account.name}
 			</p>
 			<p className="text-button-md text-text-primary">
 				{Number(transaction.amount)} KWD
 			</p>
+
 			<div className="flex items-center gap-2">
 				<Button
 					variant="ghost"

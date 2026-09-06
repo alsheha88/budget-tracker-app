@@ -90,7 +90,9 @@ export const deleteTransaction: RequestHandler = async (req, res) => {
 	if (!transaction.count)
 		throw new NotFoundError("Couldn't delete transaction");
 
-	res.status(200).json({ message: "Transaction deleted successfully" });
+	res
+		.status(200)
+		.json({ data: { message: "Transaction deleted successfully" } });
 };
 
 export const addTransaction: RequestHandler = async (req, res) => {

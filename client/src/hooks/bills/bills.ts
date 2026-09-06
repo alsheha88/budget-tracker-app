@@ -38,12 +38,10 @@ export const useMarkAsPaid = () => {
 	return useMutation({
 		mutationFn: markAsPaid,
 		onSuccess: () => {
-			console.log("HOOK onSuccess RUNNING");
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
 		},
 		onError: (e) => {
-			console.log("MUTATION ERROR:", e);
 		},
 	});
 };

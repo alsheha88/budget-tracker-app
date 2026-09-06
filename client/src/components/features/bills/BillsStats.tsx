@@ -1,5 +1,6 @@
 import { ArrowDownLeftIcon, ArrowUpRight, Wallet } from "lucide-react";
 import { Card } from "../../ui/Card";
+import { formatKWD } from "../../../lib/utils";
 
 type BillsStatsProps = {
 	dueThisWeek: number;
@@ -18,7 +19,7 @@ function BillsStats({ dueThisMonth, dueThisWeek, overdue }: BillsStatsProps) {
 					</div>
 				</div>
 				<h2 className="text-h2 text-text-primary">
-					{dueThisWeek.toFixed(1)} KWD
+					{formatKWD(dueThisWeek)} 
 				</h2>
 			</Card>
 			<Card className="flex flex-col gap-4">
@@ -30,7 +31,7 @@ function BillsStats({ dueThisMonth, dueThisWeek, overdue }: BillsStatsProps) {
 					</div>
 				</div>
 				<h2 className="text-h2 text-text-primary">
-					{dueThisMonth.toFixed(1)} KWD
+					{formatKWD(dueThisMonth)}
 				</h2>
 			</Card>
 			<Card className="flex flex-col gap-4">
@@ -41,7 +42,7 @@ function BillsStats({ dueThisMonth, dueThisWeek, overdue }: BillsStatsProps) {
 						<ArrowDownLeftIcon className="stroke-interactive-destructive" />
 					</div>
 				</div>
-				<h2 className="text-h2 text-text-primary">{overdue.toFixed(1)} KWD</h2>
+				<h2 className="text-h2 text-text-primary">{formatKWD(overdue)}</h2>
 			</Card>
 		</div>
 	);

@@ -12,7 +12,10 @@ import {
 	dbGetSavings,
 	updateSaving,
 } from "../../db/functions/savings/savings.js";
-import { dbGetSavingsPageStats, dbGetSavingsStats } from "../../db/functions/stats/stats.js";
+import {
+	dbGetSavingsPageStats,
+	dbGetSavingsStats,
+} from "../../db/functions/stats/stats.js";
 
 export const createSavings: RequestHandler = async (req, res) => {
 	const userId = req.user.id;
@@ -61,7 +64,7 @@ export const deleteSavings: RequestHandler = async (req, res) => {
 	const savings = await dbDeleteSaving(userId, id);
 	if (!savings.count) throw new NotFoundError("Couldn't delete savings");
 
-	res.status(200).json({ message: "savings deleted successfully" });
+	res.status(200).json({ data: { message: "savings deleted successfully" } });
 };
 export const getSavings: RequestHandler = async (req, res) => {
 	const userId = req.user.id;

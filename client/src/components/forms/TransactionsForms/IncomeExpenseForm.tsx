@@ -1,16 +1,12 @@
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/Button";
-import PopoverComponent from "../../ui/Popover";
-import DatePicker from "../../ui/DatePicker";
-import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
+import { capitalizeFirstLetter } from "../../../lib/utils";
 import Input from "../../ui/Input";
-import SelectComponent from "../../ui/Select";
 import * as Switch from "radix-ui/switch";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
-import { useEffect, useState, type SetStateAction } from "react";
+import { useEffect, type SetStateAction } from "react";
 import type { TransactionsResponse } from "../../../../../shared/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getApiErrorMessage } from "../../../lib/api";
 import { useGetAccountStats } from "../../../hooks/accounts/useAccounts";
 import {
 	useCreateTransaction,
@@ -20,6 +16,8 @@ import {
 	createTransactionSchema,
 	type CreateTransactionData,
 } from "../../../schemas/transactionsSchema";
+import FormSelect from "../formControllers/FormSelect";
+import FormDatePicker from "../formControllers/FormDatePicker";
 
 type Transaction = TransactionsResponse["transactions"][number];
 type TransactionsFormProps = {
@@ -36,7 +34,6 @@ function IncomeExpenseForm({
 	setIsOpen,
 	transactionType,
 }: TransactionsFormProps) {
-	const [datePickerOpen, setDatePickerOpen] = useState(false);
 	const { mutate: addTransaction } = useCreateTransaction();
 	const { mutate: editTransaction } = useEditTransaction();
 	const { data } = useGetAccountStats();
@@ -97,9 +94,6 @@ function IncomeExpenseForm({
 				onSuccess: () => {
 					setIsOpen(false);
 				},
-				onError: (e) => {
-					console.log(getApiErrorMessage(e));
-				},
 			});
 		} else {
 			editTransaction(
@@ -114,11 +108,7 @@ function IncomeExpenseForm({
 	};
 
 	return (
-		<form
-			className="grid gap-5 "
-			onSubmit={handleSubmit(onSubmit, (errors) =>
-				console.log("VALIDATION FAILED:", errors),
-			)}>
+		<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
 			<Input
 				type={"text"}
 				label="Merchant"
@@ -133,69 +123,21 @@ function IncomeExpenseForm({
 				error={errors.amount?.message}
 				{...register("amount", { valueAsNumber: true })}
 			/>
-
-			<Controller
+			<FormSelect
+				label="Category"
+				placeholder="Select Category"
 				name="categoryId"
+				options={categoryOptions}
 				control={control}
-				render={({ field }) => (
-					<>
-						<SelectComponent
-							label={"Category"}
-							value={field.value!}
-							onValueChange={field.onChange}
-							options={categoryOptions}
-							placeholder={"Select Category"}
-							error={errors.categoryId?.message}
-						/>
-					</>
-				)}
 			/>
-
-			<Controller
+			<FormSelect
+				label="Payment Account"
+				placeholder="Select Account"
 				name="accountId"
+				options={accountsOptions}
 				control={control}
-				render={({ field }) => (
-					<SelectComponent
-						label={"Payment Account"}
-						value={field.value!}
-						onValueChange={field.onChange}
-						options={accountsOptions}
-						placeholder={"Select Account"}
-						error={errors.accountId?.message}
-					/>
-				)}
 			/>
-
-			<div className="grid gap-1.5">
-				<label className="text-sidebar-foreground text-caption-lg">
-					Transaction Date
-				</label>
-				<Controller
-					name="date"
-					control={control}
-					render={({ field }) => {
-						return (
-							<PopoverComponent
-								open={datePickerOpen}
-								onOpenChange={setDatePickerOpen}
-								triggerContent={
-									field.value
-										? formatDateShort(field.value.toLocaleString())
-										: "Select Date"
-								}>
-								<DatePicker
-									selected={field.value!}
-									setSelected={(date) => {
-										field.onChange(date);
-										setDatePickerOpen(false);
-									}}
-								/>
-							</PopoverComponent>
-						);
-					}}
-				/>
-			</div>
-
+			<FormDatePicker name="date" control={control} label="Transaction Date" />
 			<div className="flex flex-col gap-2">
 				<label className="text-text-secondary text-body-sm">
 					Recurring Bill
