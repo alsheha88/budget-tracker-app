@@ -7,7 +7,7 @@ import {
 import SelectComponent from "../../ui/Select";
 
 type FormSelectProps<T extends FieldValues> = {
-	control: Control<T, any, T>;
+	control: Control<T, any, any>;
 	name: FieldPath<T>;
 	label: string;
 	options: { label: string; value: string }[];
