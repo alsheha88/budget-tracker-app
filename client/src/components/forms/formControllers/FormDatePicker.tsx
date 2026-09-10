@@ -10,7 +10,7 @@ import { useState } from "react";
 import { formatDateShort } from "../../../lib/utils";
 
 type FormDatePickerProps<T extends FieldValues> = {
-	control: Control<T>;
+	control: Control<T, any, T>;
 	name: FieldPath<T>;
 	label: string;
 };
