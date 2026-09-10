@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/authPages/LoginPage";
 import SignupPage from "./pages/authPages/SignupPage";
 import { PublicOnlyRoute } from "./routes/PublicRoute";
@@ -31,6 +31,7 @@ function App() {
 				}
 			/>
 			<Route element={<ProtectedLayout />}>
+				<Route path="/" element={<Navigate to="/dashboard" replace />} />
 				<Route path="/dashboard" element={<DashboardPage />} />
 				<Route path="/transactions" element={<TransactionsPage />} />
 				<Route path="/accounts" element={<AccountsPage />} />
