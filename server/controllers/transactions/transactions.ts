@@ -87,7 +87,7 @@ export const deleteTransaction: RequestHandler = async (req, res) => {
 	const id = parsedId.data;
 
 	const transaction = await dbDeleteTransaction(id, userId);
-	if (!transaction.count)
+	if (!transaction?.count)
 		throw new NotFoundError("Couldn't delete transaction");
 
 	res
