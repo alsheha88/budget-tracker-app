@@ -43,7 +43,7 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 			target: Number(savings?.target) ?? 0,
 			priority: savings?.priority ?? "medium",
 			monthlyContribution: Number(savings?.monthlyContribution) ?? 0,
-			targetDate: savings?.targetDate ?? new Date(),
+			targetDate: savings?.targetDate ? new Date(savings.targetDate) : null,
 			color: savings?.color ?? "#10B981",
 		},
 	});

@@ -46,7 +46,7 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 			name: budget?.name ?? "",
 			limit: Number(budget?.limit) ?? 0,
 			period: budget?.period ?? "monthly",
-			startDate: budget?.startDate ?? new Date(),
+			startDate: budget?.startDate ? new Date(budget.startDate) : new Date(),
 			alertThreshold: budget?.alertThreshold ?? 75,
 			categoryId: budget?.categoryId ?? "",
 			notes: budget?.notes ?? "",
