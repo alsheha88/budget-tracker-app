@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetAccountStats } from "../../../hooks/accounts/useAccounts";
 import FormSelect from "../formControllers/FormSelect";
 import FormDatePicker from "../formControllers/FormDatePicker";
+import { ThreeDots } from "react-loader-spinner";
 
 type Bill = BillsStatsRespoonse["bills"][number];
 type BillsFormProps = {
@@ -23,13 +24,12 @@ type BillsFormProps = {
 	bill: Bill | null;
 	setIsFormOpen: React.Dispatch<SetStateAction<boolean>>;
 	isFormOpen: boolean;
-
 };
 
 function BillsForm({ bill, type, setIsFormOpen, isFormOpen }: BillsFormProps) {
 	const header = type === "Add" ? "Add Bill" : "Edit Bill";
-	const { mutate: addBill } = useCreateBill();
-	const { mutate: editBill } = useEditBill();
+	const { mutate: addBill, isPending: pendingCreate } = useCreateBill();
+	const { mutate: editBill, isPending: pendingEdit } = useEditBill();
 	const { data } = useGetAccountStats();
 	const { data: categories } = useGetCategories();
 	const {
@@ -134,13 +134,45 @@ function BillsForm({ bill, type, setIsFormOpen, isFormOpen }: BillsFormProps) {
 							error={errors.amount?.message}
 							{...register("amount", { valueAsNumber: true })}
 						/>
-						<FormSelect label="Category" placeholder="Select Category" name="categoryId" options={categoryOptions} control={control} />
-						<FormSelect label="Billing Frequency" placeholder="Monthly" name="frequency" options={frequencyOptions} control={control} />
-						<FormSelect label="Payment Account" placeholder="Select Account" name="accountId" options={accountsOptions} control={control} />
-						<FormDatePicker name="dueDate" control={control} label="Next Due Date" />
+						<FormSelect
+							label="Category"
+							placeholder="Select Category"
+							name="categoryId"
+							options={categoryOptions}
+							control={control}
+						/>
+						<FormSelect
+							label="Billing Frequency"
+							placeholder="Monthly"
+							name="frequency"
+							options={frequencyOptions}
+							control={control}
+						/>
+						<FormSelect
+							label="Payment Account"
+							placeholder="Select Account"
+							name="accountId"
+							options={accountsOptions}
+							control={control}
+						/>
+						<FormDatePicker
+							name="dueDate"
+							control={control}
+							label="Next Due Date"
+						/>
 						<div className="flex items-center gap-4 place-self-end">
-							<Button variant="primary" size="lg" type="submit">
-								{type === "Add" ? "Create" : "Save"}
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								disabled={pendingCreate || pendingCreate}>
+								{pendingCreate || pendingEdit ? (
+									<ThreeDots color="#09090b" width={16} height={16} />
+								) : type === "Add" ? (
+									"Create"
+								) : (
+									"Save"
+								)}
 							</Button>
 							<Button
 								variant="secondary"

@@ -5,7 +5,7 @@ export const createTransactionSchema = z.object({
 	description: z.string().optional(),
 	amount: z.number().positive().multipleOf(0.001).max(1_000_000),
 	type: z.enum(["Income", "Expense"]),
-	isRecurring: z.boolean().optional(),
+	isRecurring: z.boolean().nullable(),
 	date: z.date(),
 	notes: z.string().optional(),
 	categoryId: z.uuid(),

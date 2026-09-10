@@ -16,7 +16,7 @@ function EmptyState({
 	onAction,
 }: EmptyStateProps) {
 	return (
-		<div className="grid gap-8 place-items-center">
+		<div className="grid gap-2 place-items-center">
 			<div>{icon}</div>
 			<div className="flex flex-col gap-3">
 				<h3 className="text-h3 text-text-primary">{title}</h3>

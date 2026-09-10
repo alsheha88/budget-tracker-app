@@ -13,14 +13,14 @@ function NameCell({ name, color, category }: Props) {
 	return (
 		<div className="flex items-center gap-3">
 			<div
-				className="w-10 h-10 flex items-center justify-center rounded-sm"
+				className="w-10 h-10 hidden sm:flex items-center justify-center rounded-sm"
 				style={{
 					backgroundColor: `${color || "#10B981"}26`,
 				}}>
 				<Icon color={color} size={18} />
 			</div>
 			<div className="flex flex-col gap-1">
-				<p className="text-button-md text-text-primary">{name}</p>
+				<p className="text-button-sm sm:text-button-md text-text-primary">{name}</p>
 				<Badge name={capitalizeFirstLetter(category)} color={color} />
 			</div>
 		</div>

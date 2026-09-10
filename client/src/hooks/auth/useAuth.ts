@@ -1,8 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { login, logout, signup } from "../../api/auth/authApi";
 import { useNavigate } from "react-router-dom";
-import { clearAuthToken, setAuthToken } from "../../lib/api";
+import {
+	clearAuthToken,
+	getApiErrorMessage,
+	setAuthToken,
+} from "../../lib/api";
 import { getUser } from "../../api/user/userApi";
+import toast from "react-hot-toast";
 
 export const useLogin = () => {
 	const navigate = useNavigate();
@@ -12,8 +17,10 @@ export const useLogin = () => {
 		onSuccess: (token) => {
 			setAuthToken(token);
 			navigate("/dashboard");
+			toast.success("Welcome!");
 		},
-		onError: (e) => {
+		onError: () => {
+			toast.error("Something went wrong");
 		},
 	});
 };
@@ -24,22 +31,28 @@ export const useSignup = () => {
 		mutationFn: signup,
 		onSuccess: () => {
 			navigate("/verify-email");
+			toast.success("Sign up successfull, please verify your email");
 		},
-		onError: (e) => {
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
 
 export const useLogout = () => {
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	return useMutation({
 		mutationFn: logout,
 		onSuccess: () => {
 			clearAuthToken();
+			queryClient.clear();
 			navigate("/login");
+			toast.success("Logged out successfully");
 		},
-		onError: (e) => {
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };

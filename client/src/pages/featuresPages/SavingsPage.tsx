@@ -34,17 +34,17 @@ function SavingsPage() {
 	if (isPending) return <LoadingState />;
 	if (isError)
 		return (
-			<ErrorState
-				title={"Something Went Wrong!"}
-				message={"We couldn't load your savings"}
-				onAction={refetch}
-			/>
+				<ErrorState
+					title={"Something Went Wrong!"}
+					message={"We couldn't load your savings"}
+					onAction={refetch}
+				/>
 		);
 	const savings = savingsStats.savings;
 
 	return (
 		<div className="grid gap-7">
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col md:flex-row sm:items-center justify-between gap-4">
 				<div className="flex flex-col gap-1">
 					<h2 className="text-h2 text-text-primary">Savings Goals</h2>
 					<p className="text-caption-lg text-text-secondary">
@@ -52,6 +52,7 @@ function SavingsPage() {
 					</p>
 				</div>
 				<Button
+					className="shrink-0"
 					size="lg"
 					type="button"
 					onClick={() => {
@@ -78,7 +79,7 @@ function SavingsPage() {
 						<p className="text-button-md text-text-primary">
 							Your Savings Milestones
 						</p>
-						<div className="grid grid-cols-3 gap-4">
+						<div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
 							<Card className="flex flex-col gap-4">
 								<div className="flex items-center justify-between">
 									<p className="text-text-secondary text-caption-lg">
@@ -120,7 +121,7 @@ function SavingsPage() {
 							</Card>
 						</div>
 					</div>
-					<div className="grid grid-cols-2 gap-4">
+					<div className="grid lg:grid-cols-2 gap-4">
 						{savings.map((s) => (
 							<SavingsCard
 								key={s.id}

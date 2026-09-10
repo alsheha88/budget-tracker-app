@@ -1,5 +1,5 @@
 import { useEffect, type Dispatch, type SetStateAction } from "react";
-import {  useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import {
 	useCreateSavings,
 	useEditSavings,
@@ -16,6 +16,7 @@ import {
 import { Button } from "../../ui/Button";
 import FormSelect from "../formControllers/FormSelect";
 import FormDatePicker from "../formControllers/FormDatePicker";
+import { ThreeDots } from "react-loader-spinner";
 
 type SavingsItem = SavingsResponse["savings"][number];
 type SavingsFormData = {
@@ -26,8 +27,8 @@ type SavingsFormData = {
 };
 
 function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
-	const { mutate: addSavings } = useCreateSavings();
-	const { mutate: editSavings } = useEditSavings();
+	const { mutate: addSavings, isPending: pendingCreate } = useCreateSavings();
+	const { mutate: editSavings, isPending: pendingEdit } = useEditSavings();
 	const {
 		register,
 		control,
@@ -119,7 +120,11 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 							error={errors.target?.message}
 							{...register("target", { valueAsNumber: true })}
 						/>
-						<FormDatePicker name="targetDate" control={control} label="Select Date" />
+						<FormDatePicker
+							name="targetDate"
+							control={control}
+							label="Select Date"
+						/>
 						<FormSelect
 							label="Priority"
 							placeholder="Select Priority"
@@ -128,8 +133,18 @@ function SavingsForm({ savings, type, isOpen, setIsOpen }: SavingsFormData) {
 							control={control}
 						/>
 						<div className="flex items-center gap-4 place-self-end">
-							<Button variant="primary" size="lg" type="submit">
-								{type === "Add" ? "Create" : "Save"}
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								disabled={pendingCreate || pendingCreate}>
+								{pendingCreate || pendingEdit ? (
+									<ThreeDots color="#09090b" width={16} height={16} />
+								) : type === "Add" ? (
+									"Create"
+								) : (
+									"Save"
+								)}
 							</Button>
 							<Button
 								variant="secondary"

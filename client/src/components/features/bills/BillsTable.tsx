@@ -1,4 +1,4 @@
-import { useState, type SetStateAction } from "react";
+import { type SetStateAction } from "react";
 import type { BillsStatsRespoonse } from "../../../../../shared/types";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
 import { Card } from "../../ui/Card";
@@ -21,7 +21,6 @@ function BillsTable({
 	setType,
 	setBill,
 }: BillsTableProps) {
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const { data: categories } = useGetCategories();
 
 	const tableHeaders = [
@@ -34,19 +33,22 @@ function BillsTable({
 
 	return (
 		<Card size="xl" role="table" className="grid gap-4">
-			<div>
+			<div className="">
 				<TableHeader
 					headers={tableHeaders}
 					gridCol={"2fr_1fr_1fr_1fr_1fr_1fr"}
 				/>
-				<hr className="text-border-default" />
+				<hr className="text-border-default lg:block hidden" />
+				<h3 className="text-h3 text-text-primary mb-4 block lg:hidden">
+					Bills
+				</h3>
 
 				{bills?.map((i) => {
 					const category = categories?.find((c) => c.id === i.categoryId);
 					const status = i.paidAt ? "paid" : "upcoming";
 
 					return (
-						<div key={i.id}>
+						<div key={i.id} className="mb-3">
 							<BillRow
 								category={category?.name ?? ""}
 								color={category?.color ?? ""}
@@ -55,10 +57,8 @@ function BillsTable({
 								setType={setType}
 								setBill={setBill}
 								bill={i}
-								setIsModalOpen={setIsModalOpen}
-								isModalOpen={isModalOpen}
 							/>
-							<hr className="text-border-default" />
+							<hr className="text-border-default lg:block hidden" />
 						</div>
 					);
 				})}

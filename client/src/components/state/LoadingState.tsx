@@ -1,9 +1,9 @@
-import { Loader2 } from "lucide-react";
+import { ThreeCircles } from "react-loader-spinner";
 
 function LoadingState() {
   return (
     <div className="grid place-items-center py-20 h-dvh">
-      <Loader2 className="animate-spin text-interactive-primary" size={40} />
+				<ThreeCircles color="#10b77f" />
     </div>
   );
 }

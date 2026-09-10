@@ -55,30 +55,12 @@ function TransactionsPage() {
 
 	return (
 		<div className="grid gap-6">
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col md:flex-row sm:items-center justify-between gap-4">
 				<div className="flex flex-col gap-1">
 					<h2 className="text-h2 text-text-primary">Transactions</h2>
 					<p className="text-caption-lg text-text-secondary">
 						Track and manage all your transactional cash flow and history.
 					</p>
-				</div>
-				<div className="flex items-center gap-2">
-					<Input
-						type={"text"}
-						placeholder="Search by merchant, card..."
-						value={searchInput}
-						onChange={(e) => setSearchInput(e.target.value)}
-					/>
-					<Button
-						size="lg"
-						type="button"
-						onClick={() => {
-							setIsFormOpen(true);
-							setType("Add");
-							setTransaction(null);
-						}}>
-						Add Transaction
-					</Button>
 				</div>
 			</div>
 			{transactions.count === 0 ? (
@@ -107,6 +89,25 @@ function TransactionsPage() {
 						expenses={transactionsStats.expenses}
 						balance={transactionsStats.balance}
 					/>
+					<div className="w-full grid md:grid-cols-[1.5fr_1fr] flex-wrap items-center justify-center gap-3">
+						<Input
+							type={"text"}
+							placeholder="Search by merchant, card..."
+							value={searchInput}
+							onChange={(e) => setSearchInput(e.target.value)}
+						/>
+						<Button
+							className="shrink-0"
+							size="lg"
+							type="button"
+							onClick={() => {
+								setIsFormOpen(true);
+								setType("Add");
+								setTransaction(null);
+							}}>
+							Add Transaction
+						</Button>
+					</div>
 					<TransactionsTable
 						data={transactions}
 						page={page}

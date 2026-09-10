@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
 import type { AccountStatsResponse } from "../../../../../shared/types";
 import FormSelect from "../formControllers/FormSelect";
+import { ThreeDots } from "react-loader-spinner";
 
 type AccountItem = AccountStatsResponse["accounts"][number];
 type AccountFormData = {
@@ -26,8 +27,8 @@ type AccountFormData = {
 
 function AccountForm({ type, isOpen, setIsOpen, account }: AccountFormData) {
 	const header = type === "Add" ? "Add Account" : "Edit Account";
-	const { mutate: addAccount, isPending } = useCreateAccount();
-	const { mutate: editAccount } = useEditAccount();
+	const { mutate: addAccount, isPending: pendingCreate } = useCreateAccount();
+	const { mutate: editAccount, isPending: pendingEdit } = useEditAccount();
 	const {
 		handleSubmit,
 		formState: { errors },
@@ -110,8 +111,14 @@ function AccountForm({ type, isOpen, setIsOpen, account }: AccountFormData) {
 								variant="primary"
 								size="lg"
 								type="submit"
-								disabled={isPending}>
-								{type === "Add" ? "Create" : "Save"}
+								disabled={pendingCreate || pendingCreate}>
+								{pendingCreate || pendingEdit ? (
+									<ThreeDots color="#09090b" width={16} height={16} />
+								) : type === "Add" ? (
+									"Create"
+								) : (
+									"Save"
+								)}
 							</Button>
 							<Button
 								variant="secondary"

@@ -1,5 +1,4 @@
-
-import { capitalizeFirstLetter, formatDateShort } from "../../../lib/utils";
+import { capitalizeFirstLetter, formatDateShort, formatKWD } from "../../../lib/utils";
 import { getCategoryIcon } from "../../../lib/icons";
 import Badge from "../../ui/Badge";
 import type { TransactionsResponse } from "../../../../../shared/types";
@@ -37,16 +36,16 @@ function TransactionsRow({
 
 	return (
 		<div
-			className="grid grid-cols-[0.5fr_2fr_1fr_1fr_1fr_0.5fr] items-center justify-between py-3.5 px-4"
-			role="row">
-			<p className="text-caption-lg text-sidebar-foreground">
-				{formatDateShort(transaction.date.toString())}
-			</p>
-
-			{/* Icon + merchant */}
-			<div className="flex items-center gap-3">
+			role="row"
+			className="
+				flex flex-col gap-3 p-4 rounded-md border border-border-default
+				lg:grid lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr_0.5fr] lg:items-center
+				lg:gap-0 lg:p-0 lg:py-3.5 lg:px-4 lg:rounded-none lg:border-none
+			">
+			{/* Icon + merchant — the row's identity, always shown, no label */}
+			<div className="flex items-center gap-3 lg:order-2">
 				<div
-					className="w-10 h-10 flex items-center justify-center rounded-sm"
+					className="w-10 h-10 flex items-center justify-center rounded-sm shrink-0"
 					style={{ backgroundColor: `${iconColor}26` }}>
 					{isTransfer ? (
 						<ArrowLeftRight color={TRANSFER_COLOR} size={16} />
@@ -64,24 +63,53 @@ function TransactionsRow({
 				</div>
 			</div>
 
-			{/* Category / Transfer badge */}
-			{isTransfer ? (
-				<Badge name="Transfer" color={TRANSFER_COLOR} />
-			) : (
-				<Badge
-					name={capitalizeFirstLetter(transaction.category?.name ?? "")}
-					color={transaction.category?.color ?? "#6b7280"}
-				/>
-			)}
+			{/* Date */}
+			<div className="flex items-center justify-between lg:block lg:order-1">
+				<span className="text-label-md text-input-placeholder lg:hidden">
+					Date
+				</span>
+				<p className="text-caption-lg text-sidebar-foreground">
+					{formatDateShort(transaction.date.toString())}
+				</p>
+			</div>
 
-			<p className="text-caption-lg text-sidebar-foreground">
-				{transaction.account.name}
-			</p>
-			<p className="text-button-md text-text-primary">
-				{Number(transaction.amount)} KWD
-			</p>
+			{/* Category / Transfer */}
+			<div className="flex items-center justify-between lg:block lg:order-3">
+				<span className="text-label-md text-input-placeholder lg:hidden">
+					Category
+				</span>
+				{isTransfer ? (
+					<Badge name="Transfer" color={TRANSFER_COLOR} />
+				) : (
+					<Badge
+						name={capitalizeFirstLetter(transaction.category?.name ?? "")}
+						color={transaction.category?.color ?? "#6b7280"}
+					/>
+				)}
+			</div>
 
-			<div className="flex items-center gap-2">
+			{/* Account */}
+			<div className="flex items-center justify-between lg:block lg:order-4">
+				<span className="text-label-md text-input-placeholder lg:hidden">
+					Account
+				</span>
+				<p className="text-caption-lg text-sidebar-foreground">
+					{transaction.account.name}
+				</p>
+			</div>
+
+			{/* Amount */}
+			<div className="flex items-center justify-between lg:block lg:order-5">
+				<span className="text-label-md text-input-placeholder lg:hidden">
+					Amount
+				</span>
+				<p className="text-button-md text-text-primary">
+					{formatKWD(Number(transaction.amount))}
+				</p>
+			</div>
+
+			{/* Actions */}
+			<div className="flex items-center gap-2 justify-end lg:justify-start lg:order-6">
 				<Button
 					variant="ghost"
 					className="hover:bg-transparent"

@@ -20,7 +20,7 @@ function TransactionRow({
 		<div className="py-3 flex items-center justify-between">
 			<NameCell name={transactionName} color={color} category={category} />
 			<div className="flex flex-col gap-1">
-				<p
+				<p className="text-caption-sm sm:text-button-lg text-end" 
 					style={{
 						fontSize: "var(--text-button-md)",
 						color:
@@ -29,7 +29,7 @@ function TransactionRow({
 					}}>
 					{formatKWD(amount)}
 				</p>
-				<p className="text-caption-md text-text-secondary text-end">
+				<p className="text-caption-sm sm:text-caption-md text-text-secondary text-end">
 					{formatDateShort(date)}
 				</p>
 			</div>

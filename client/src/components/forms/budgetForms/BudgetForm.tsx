@@ -19,6 +19,7 @@ import {
 import CheckboxComponent from "../../ui/Checkbox";
 import FormSelect from "../formControllers/FormSelect";
 import FormDatePicker from "../formControllers/FormDatePicker";
+import { ThreeDots } from "react-loader-spinner";
 
 type Budget = BudgetsStatsResponse["budgetStats"][number];
 type BudgetFormProps = {
@@ -30,8 +31,8 @@ type BudgetFormProps = {
 
 function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 	const header = type === "Add" ? "Add Budget" : "Edit Budget";
-	const { mutate: addBudget } = useCreateBudget();
-	const { mutate: editBudget } = useEditBudget();
+	const { mutate: addBudget, isPending: pendingCreate } = useCreateBudget();
+	const { mutate: editBudget, isPending: pendingEdit } = useEditBudget();
 	const { data: categories } = useGetCategories();
 	const {
 		control,
@@ -140,7 +141,11 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 							error={errors.limit?.message}
 							{...register("limit", { valueAsNumber: true })}
 						/>
-						<FormDatePicker name="startDate" control={control} label="Start Date" />
+						<FormDatePicker
+							name="startDate"
+							control={control}
+							label="Start Date"
+						/>
 						<FormSelect
 							label="Alert Threshold"
 							placeholder="Monthly"
@@ -163,8 +168,18 @@ function BudgetForm({ type, isOpen, setIsOpen, budget }: BudgetFormProps) {
 						/>
 
 						<div className="flex items-center gap-4 place-self-end">
-							<Button variant="primary" size="lg" type="submit">
-								{type === "Add" ? "Create" : "Save"}
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								disabled={pendingCreate || pendingCreate}>
+								{pendingCreate || pendingEdit ? (
+									<ThreeDots color="#09090b" width={16} height={16} />
+								) : type === "Add" ? (
+									"Create"
+								) : (
+									"Save"
+								)}
 							</Button>
 							<Button
 								variant="secondary"

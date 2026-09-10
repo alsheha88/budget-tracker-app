@@ -1,4 +1,4 @@
-import type { SetStateAction } from "react";
+import { type SetStateAction } from "react";
 import type { Response } from "../../../api/transactions/transactions";
 import { Button } from "../../ui/Button";
 import { Card } from "../../ui/Card";
@@ -43,26 +43,29 @@ function TransactionsTable({
 					headers={tableHeaders}
 					gridCol={"0.5fr_2fr_1fr_1fr_1fr_0.5fr"}
 				/>
-				<hr className="text-border-default" />
+				<hr className="text-border-default hidden lg:block" />
+				<h3 className="text-h3 text-text-primary mb-4 block lg:hidden">
+					Transactions
+				</h3>
 
 				{data.transactions.map((i) => (
-					<div key={i.id}>
+					<div key={i.id} className="mb-3 lg:mb-0">
 						<TransactionsRow
 							setTransaction={setTransaction}
 							transaction={i}
 							setIsOpen={setIsOpen}
 							setMode={setMode}
 						/>
-						<hr className="text-border-default" />
+						<hr className="text-border-default hidden lg:block" />
 					</div>
 				))}
 			</div>
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col sm:flex-row items-center justify-between gap-3">
 				<p className="text-caption-lg text-input-placeholder">
-					Showing {skip + 1} - {Math.min(skip + data.limit, data.count)} of
+					Showing {skip + 1} - {Math.min(skip + data.limit, data.count)} of{" "}
 					{data.count} transactions
 				</p>
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 flex-wrap justify-center">
 					<Button
 						variant="secondary"
 						onClick={() => setPage(page - 1)}

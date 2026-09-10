@@ -7,6 +7,8 @@ import {
 	getSavings,
 	getSavingsStats,
 } from "../../api/savings/savings";
+import toast from "react-hot-toast";
+import { getApiErrorMessage } from "../../lib/api";
 
 export const useGetSavings = () => {
 	return useQuery({
@@ -28,9 +30,10 @@ export const useCreateSavings = () => {
 		onSuccess: () => {
 			(queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
 				queryClient.invalidateQueries({ queryKey: ["savingsStats"] }));
+			toast.success("Savings Goal Created");
 		},
 		onError: (error) => {
-			console.error("Create savings failed:", error);
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -41,9 +44,10 @@ export const useEditSavings = () => {
 		onSuccess: () => {
 			(queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
 				queryClient.invalidateQueries({ queryKey: ["savingsStats"] }));
+			toast.success("Changes Saved");
 		},
 		onError: (error) => {
-			console.error("Create savings failed:", error);
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -55,9 +59,10 @@ export const useDeleteSavings = () => {
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+			toast.success("Savings Deleted");
 		},
 		onError: (error) => {
-			console.error("Create savings failed:", error);
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -69,9 +74,10 @@ export const useCreateContribution = () => {
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+			toast.success("Contribution added");
 		},
 		onError: (error) => {
-			console.error("Create savings failed:", error);
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };

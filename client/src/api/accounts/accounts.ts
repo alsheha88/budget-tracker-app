@@ -1,9 +1,6 @@
 import type { AccountStatsResponse } from "../../../../shared/types";
 import { api } from "../../lib/api";
-import {
-	type EditAccountData,
-	type CreateAccountData,
-} from "../../schemas/accountsSchema";
+import { type CreateAccountData } from "../../schemas/accountsSchema";
 import { type IdParamsType } from "../../schemas/authSchema";
 
 export const getAccountStats = async (): Promise<AccountStatsResponse> => {
@@ -28,3 +25,4 @@ export const editAccount = async ({
 	const res = await api.patch(`/accounts/${id}`, data);
 	return res.data.data.account;
 };
+

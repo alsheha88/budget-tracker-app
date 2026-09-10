@@ -34,7 +34,7 @@ function BillsPage() {
 	const summary = data.summary;
 	return (
 		<div className="grid gap-7">
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col md:flex-row sm:items-center justify-between gap-4">
 				<div className="flex flex-col gap-1">
 					<h2 className="text-h2 text-text-primary">Bills</h2>
 					<p className="text-caption-lg text-text-secondary">
@@ -43,6 +43,7 @@ function BillsPage() {
 					</p>
 				</div>
 				<Button
+					className="shrink-0"
 					size="lg"
 					type="button"
 					onClick={() => {

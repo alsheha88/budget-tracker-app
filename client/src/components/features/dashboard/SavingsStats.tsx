@@ -10,7 +10,7 @@ function SavingsStats({ data }: SavingsStatsProps) {
 	return (
 		<Card className="flex flex-col gap-5">
 			<p className="text-button-lg text-text-primary">Savings Goals</p>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+			<div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
 				{data.map((i) => (
 					<SavingsCard
 						key={i.id}

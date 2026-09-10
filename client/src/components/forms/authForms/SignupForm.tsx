@@ -5,9 +5,10 @@ import { Button } from "../../ui/Button";
 import Input from "../../ui/Input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSignup } from "../../../hooks/auth/useAuth";
+import { ThreeDots } from "react-loader-spinner";
 
 function SignupForm() {
-    const {mutate, error, isPending} = useSignup()
+	const { mutate, error, isPending } = useSignup();
 	const {
 		register,
 		handleSubmit,
@@ -21,7 +22,7 @@ function SignupForm() {
 			phoneNumber: "",
 		},
 	});
-    const onSubmit:SubmitHandler<SignUpData> = (data) => mutate(data)
+	const onSubmit: SubmitHandler<SignUpData> = (data) => mutate(data);
 	return (
 		<form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
 			<div className="grid gap-4">
@@ -61,7 +62,13 @@ function SignupForm() {
 					{...register("confirmPassword")}
 				/>
 			</div>
-			<Button disabled={isPending}>Sign Up</Button>
+			<Button disabled={isPending}>
+				{isPending ? (
+					<ThreeDots color="#09090b" width={16} height={16} />
+				) : (
+					`Sign Up`
+				)}
+			</Button>
 			{error && (
 				<small className="text-feedback-error text-body-sm">
 					{getApiErrorMessage(error)}

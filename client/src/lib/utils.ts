@@ -1,10 +1,3 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
 export const formatMonthShort = (date: string | Date | undefined) => {
 	if (!date) return "";
 	return Intl.DateTimeFormat("en-US", { month: "short" }).format(
@@ -55,3 +48,15 @@ export const formatKWD = (amount: number) =>
 		style: "currency",
 		currency: "KWD",
 	}).format(amount);
+
+export const getInitials = (name: string) => {
+	if (!name) return null;
+	if (!name.includes(" ")) {
+		return name.slice(0, 2).toUpperCase();
+	} else {
+		const split = name.split(" ");
+
+		return split[0].charAt(0).toUpperCase() + split[1]?.charAt(0).toUpperCase();
+	}
+};
+

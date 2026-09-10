@@ -4,12 +4,12 @@ import SignupPage from "./pages/authPages/SignupPage";
 import { PublicOnlyRoute } from "./routes/PublicRoute";
 import ProtectedLayout from "./components/ProtectedLayout";
 import DashboardPage from "./pages/featuresPages/DashboardPage";
-import { Suspense } from "react";
 import TransactionsPage from "./pages/featuresPages/TransactionsPage";
 import AccountsPage from "./pages/featuresPages/AccountsPage";
 import BudgetsPage from "./pages/featuresPages/BudgetsPage";
 import SavingsPage from "./pages/featuresPages/SavingsPage";
 import BillsPage from "./pages/featuresPages/BillsPage";
+import ProfilePage from "./pages/featuresPages/ProfilePage";
 
 function App() {
 	return (
@@ -37,6 +37,7 @@ function App() {
 				<Route path="/budgets" element={<BudgetsPage />} />
 				<Route path="/savings" element={<SavingsPage />} />
 				<Route path="/bills" element={<BillsPage />} />
+				<Route path="/profile" element={<ProfilePage />} />
 			</Route>
 		</Routes>
 	);

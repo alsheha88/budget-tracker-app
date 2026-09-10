@@ -51,6 +51,7 @@ export const dbGetAccountBalance = async (userId: string) => {
 			by: ["accountId"],
 			where: { userId },
 			_sum: { amount: true },
+			_max: { date: true },
 		}),
 	]);
 
@@ -59,10 +60,12 @@ export const dbGetAccountBalance = async (userId: string) => {
 		const transactionSum = match?._sum?.amount
 			? match._sum.amount.toNumber()
 			: 0;
+		const transactionDate = match?._max.date ?? null;
 		return {
 			...account,
 			transactionSum,
 			balance: account.startingBalance.toNumber() + transactionSum,
+			transactionDate,
 		};
 	});
 
@@ -139,28 +142,29 @@ export const dbGetBillsStats = async (userId: string) => {
 	const in7Days = new Date();
 	in7Days.setDate(in7Days.getDate() + 7);
 
-	const [monthlyBillsTotal, upcomingBills, paidBills, overdueBills] = await Promise.all([
-		prisma.bill.aggregate({
-			where: { userId, dueDate: { gte: monthStart, lte: monthEnd } },
-			_sum: { amount: true },
-		}),
-		prisma.bill.aggregate({
-			where: {
-				userId,
-				dueDate: { gte: now, lte: in7Days },
-				paidAt: null,
-			},
-			_sum: { amount: true },
-		}),
-		prisma.bill.aggregate({
-			where: { userId, paidAt: { gte: monthStart, lte: monthEnd } },
-			_sum: { amount: true },
-		}),
-		prisma.bill.aggregate({
-			where: { userId, dueDate: { lt: now }, paidAt: null },
-			_sum: { amount: true },
-		}),
-	]);
+	const [monthlyBillsTotal, upcomingBills, paidBills, overdueBills] =
+		await Promise.all([
+			prisma.bill.aggregate({
+				where: { userId, dueDate: { gte: monthStart, lte: monthEnd } },
+				_sum: { amount: true },
+			}),
+			prisma.bill.aggregate({
+				where: {
+					userId,
+					dueDate: { gte: now, lte: in7Days },
+					paidAt: null,
+				},
+				_sum: { amount: true },
+			}),
+			prisma.bill.aggregate({
+				where: { userId, paidAt: { gte: monthStart, lte: monthEnd } },
+				_sum: { amount: true },
+			}),
+			prisma.bill.aggregate({
+				where: { userId, dueDate: { lt: now }, paidAt: null },
+				_sum: { amount: true },
+			}),
+		]);
 
 	return {
 		monthlyBills: monthlyBillsTotal._sum.amount?.toNumber() ?? 0,

@@ -5,6 +5,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useLogin } from "../../../hooks/auth/useAuth";
 import { type LoginData, loginSchema } from "../../../schemas/authSchema";
 import { getApiErrorMessage } from "../../../lib/api";
+import { ThreeDots } from "react-loader-spinner";
 
 function LoginForm() {
 	const { mutate, isPending, error } = useLogin();
@@ -38,7 +39,9 @@ function LoginForm() {
 					{...register("passwordHash")}
 				/>
 			</div>
-			<Button disabled={isPending}>Sign In</Button>
+			<Button disabled={isPending}>
+				{isPending ? <ThreeDots color="#09090b" width={16} height={16} /> : `Sign In`}
+			</Button>
 			{error && (
 				<small className="text-feedback-error text-body-sm">
 					{getApiErrorMessage(error)}

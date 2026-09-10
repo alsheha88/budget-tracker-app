@@ -9,7 +9,7 @@ type ErrorStateProps = {
 
 function ErrorState({ title, message, onAction }: ErrorStateProps) {
 	return (
-		<div className="grid gap-8 place-items-center h-dvh">
+		<div className="flex flex-col gap-8 justify-center items-center h-full">
 			<XCircle className="text-interactive-destructive" />
 			<div className="flex flex-col gap-3">
 				<h3 className="text-h3 text-text-primary">{title}</h3>

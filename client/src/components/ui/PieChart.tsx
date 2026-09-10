@@ -28,6 +28,7 @@ function PieChartComponent({ data }: PieChartProps) {
 						dataKey="amount"
 						outerRadius="80%"
 						innerRadius="60%"
+						width={"100%"}
 					/>
 				<Tooltip
 					contentStyle={{

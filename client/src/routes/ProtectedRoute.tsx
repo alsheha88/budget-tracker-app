@@ -1,10 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { useGetUser } from "../hooks/auth/useAuth";
 import { ThreeCircles } from "react-loader-spinner";
-import { getApiErrorMessage } from "../lib/api";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-	const { isError, isLoading, error } = useGetUser();
+	const { isError, isLoading } = useGetUser();
 
 	if (isLoading)
 		return (

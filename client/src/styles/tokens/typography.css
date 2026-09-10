@@ -9,17 +9,21 @@
      FONT SIZE
      ========================================================================== */
 
-	--fs-display-lg: 56px;
-	--fs-display-md: 48px;
-	--fs-display-sm: 36px;
+	/* Display — big drops on mobile */
+	--fs-display-lg: clamp(40px, 6vw, 56px);
+	--fs-display-md: clamp(32px, 5vw, 48px);
+	--fs-display-sm: clamp(28px, 4vw, 36px);
 
-	--fs-h1: 32px;
-	--fs-h2: 24px;
-	--fs-h3: 20px;
-	--fs-h4: 18px;
+	/* Headings */
+	--fs-h1: clamp(26px, 4vw, 32px);
+	--fs-h2: clamp(20px, 3vw, 24px);
+	--fs-h3: clamp(18px, 2.5vw, 20px);
+	--fs-h4: clamp(16px, 2vw, 18px);
 
+	/* Body and below — leave fixed (already small) */
 	--fs-body-lg: 18px;
 	--fs-body-md: 16px;
+	/* ... rest unchanged ... */
 	--fs-body-sm: 14px;
 
 	--fs-caption-lg: 13px;

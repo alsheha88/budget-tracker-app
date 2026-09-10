@@ -5,6 +5,8 @@ import {
 	editBudget,
 	getBudgetsStats,
 } from "../../api/budgets/budgets";
+import toast from "react-hot-toast";
+import { getApiErrorMessage } from "../../lib/api";
 
 export const useGetBudgetsStats = () => {
 	return useQuery({
@@ -21,6 +23,10 @@ export const useCreateBudget = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["budgetsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Budget Created");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -32,6 +38,10 @@ export const useEditBudget = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["budgetsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Schnages Saved");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -43,6 +53,10 @@ export const useDeleteBudget = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["budgetsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Budget Deleted");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };

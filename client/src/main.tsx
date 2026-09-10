@@ -4,6 +4,8 @@ import "./styles/tokens/index.css";
 import App from "./App.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -19,6 +21,12 @@ createRoot(document.getElementById("root")!).render(
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<App />
+				<Toaster position="top-center" toastOptions={{style: {
+					color: "hsla(0, 0%, 98%, 1)",
+					backgroundColor: "hsla(240, 10%, 4%, 1)",
+					fontSize: "14px",
+					border: "1px solid hsla(240, 4%, 16%, 1)"
+				}}} />
 			</BrowserRouter>
 		</QueryClientProvider>
 	</StrictMode>,

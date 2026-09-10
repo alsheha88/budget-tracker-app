@@ -19,7 +19,8 @@ function Chart({ data }: ChartProp) {
 		<ResponsiveContainer width="100%" aspect={1.618} className={"flex-1"}>
 			<LineChart
 				data={data}
-				margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+				margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+				className="text-xs">
 				<XAxis
 					dataKey={"month"}
 					tickFormatter={(value) => formatMonthShort(value)}

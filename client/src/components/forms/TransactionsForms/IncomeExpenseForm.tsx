@@ -1,8 +1,7 @@
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/Button";
 import { capitalizeFirstLetter } from "../../../lib/utils";
 import Input from "../../ui/Input";
-import * as Switch from "radix-ui/switch";
 import { useGetCategories } from "../../../hooks/categories/useCategories";
 import { useEffect, type SetStateAction } from "react";
 import type { TransactionsResponse } from "../../../../../shared/types";
@@ -17,7 +16,7 @@ import {
 	type CreateTransactionData,
 } from "../../../schemas/transactionsSchema";
 import FormSelect from "../formControllers/FormSelect";
-import FormDatePicker from "../formControllers/FormDatePicker";
+import { ThreeDots } from "react-loader-spinner";
 
 type Transaction = TransactionsResponse["transactions"][number];
 type TransactionsFormProps = {
@@ -34,8 +33,10 @@ function IncomeExpenseForm({
 	setIsOpen,
 	transactionType,
 }: TransactionsFormProps) {
-	const { mutate: addTransaction } = useCreateTransaction();
-	const { mutate: editTransaction } = useEditTransaction();
+	const { mutate: addTransaction, isPending: pendingCreate } =
+		useCreateTransaction();
+	const { mutate: editTransaction, isPending: pendingEdit } =
+		useEditTransaction();
 	const { data } = useGetAccountStats();
 	const { data: categories } = useGetCategories();
 	const {
@@ -56,7 +57,7 @@ function IncomeExpenseForm({
 			notes: transaction?.notes ?? "",
 			description: transaction?.description ?? "",
 			billId: transaction?.billId ?? undefined,
-			isRecurring: transaction?.isRecurring ?? false,
+			isRecurring: false,
 		},
 	});
 	useEffect(() => {
@@ -70,7 +71,7 @@ function IncomeExpenseForm({
 			notes: transaction?.notes ?? "",
 			description: transaction?.description ?? "",
 			billId: transaction?.billId ?? undefined,
-			isRecurring: transaction?.isRecurring ?? false,
+			isRecurring: false,
 		});
 	}, [transaction, reset]);
 	if (!categories) return null;
@@ -108,7 +109,11 @@ function IncomeExpenseForm({
 	};
 
 	return (
-		<form className="grid gap-5 " onSubmit={handleSubmit(onSubmit)}>
+		<form
+			className="grid gap-5 "
+			onSubmit={handleSubmit(onSubmit, (errors) =>
+				console.log("VALIDATION FAILED:", errors),
+			)}>
 			<Input
 				type={"text"}
 				label="Merchant"
@@ -137,30 +142,20 @@ function IncomeExpenseForm({
 				options={accountsOptions}
 				control={control}
 			/>
-			<FormDatePicker name="date" control={control} label="Transaction Date" />
-			<div className="flex flex-col gap-2">
-				<label className="text-text-secondary text-body-sm">
-					Recurring Bill
-				</label>
-				<Controller
-					name="isRecurring"
-					control={control}
-					render={({ field }) => {
-						return (
-							<Switch.Root
-								checked={field.value}
-								onCheckedChange={field.onChange}
-								className="w-11 h-6 bg-surface-dark rounded-full relative data-[state=checked]:bg-toggle-on">
-								<Switch.Thumb className="block w-5 h-5 bg-white rounded-full transition-transform data-[state=checked]:translate-x-5" />
-							</Switch.Root>
-						);
-					}}
-				/>
-			</div>
 
 			<div className="flex items-center gap-4 place-self-end">
-				<Button variant="primary" size="lg" type="submit">
-					{mode === "Add" ? "Create" : "Save"}
+				<Button
+					variant="primary"
+					size="lg"
+					type="submit"
+					disabled={pendingCreate || pendingCreate}>
+					{pendingCreate || pendingEdit ? (
+						<ThreeDots color="#09090b" width={16} height={16} />
+					) : mode === "Add" ? (
+						"Create"
+					) : (
+						"Save"
+					)}
 				</Button>
 				<Button
 					variant="secondary"

@@ -13,14 +13,16 @@ function CashFLow({data}:cashFlow) {
 			<div className="flex items-center justify-between">
 				<div className="flex flex-col gap-1">
 					<p className="text-button-lg text-text-primary">Cash Flow</p>
-                    <p className="text-caption-md text-text-secondary">6 months comparison of your income & expenses</p>
 				</div>
                 <div className="flex items-center gap-4">
                     <Badge name={"Income"} color={"#10b77f"} />
                     <Badge name={"Expenses"} color={"#ef4343"} />
                 </div>
 			</div>
+			<div>
             <Chart data={data} />
+
+			</div>
 		</Card>
 	);
 }

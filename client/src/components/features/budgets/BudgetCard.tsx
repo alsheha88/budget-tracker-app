@@ -90,7 +90,7 @@ function BudgetCard({
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between">
 					<p className="text-caption-lg text-sidebar-foreground">
-						{formatKWD(budget.spent)} / {formatKWD(Number(budget.limit))}
+						{formatKWD(budget.spent)} / {Number(budget.limit)}
 					</p>
 					<p style={{ color: progressColor, fontSize: "var(--fs-caption-lg)" }}>
 						{budget.percent.toFixed(0)}%

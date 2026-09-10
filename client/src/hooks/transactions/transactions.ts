@@ -11,6 +11,8 @@ import {
 	editTransaction,
 	getTransactions,
 } from "../../api/transactions/transactions";
+import toast from "react-hot-toast";
+import { getApiErrorMessage } from "../../lib/api";
 
 export const useTransactions = (page: number, search?: string) => {
 	return useQuery({
@@ -32,6 +34,10 @@ export const useCreateTransaction = () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
+			toast.success("Transaction Created");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -47,6 +53,10 @@ export const useEditTransaction = () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
+			toast.success("Changes Saved");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -62,6 +72,10 @@ export const useDeleteTransaction = () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
+			toast.success("Transaction Deleted");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -77,6 +91,10 @@ export const useCreateTransfer = () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["savingsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
+			toast.success("Transfer Completed");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };

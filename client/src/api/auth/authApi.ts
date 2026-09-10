@@ -13,7 +13,7 @@ export const signup = async (data: SignUpPayload) => {
 };
 
 export const logout = async () => {
-    const res = await api.post("/logout");
+    const res = await api.post("/auth/logout");
 
     return res.data.data.message;
 }

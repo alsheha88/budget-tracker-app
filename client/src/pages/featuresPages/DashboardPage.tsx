@@ -52,11 +52,11 @@ function DashboardPage() {
 				expenses={transactionsStats.expenses}
 				balance={transactionsStats.balance}
 			/>
-			<div className="grid md:grid-cols-[1.5fr_1fr] grid-cols-1 gap-4">
+			<div className="grid lg:grid-cols-[1.5fr_1fr] grid-cols-1 gap-4">
 				<CashFLow data={cashFlow} />
 				<SpendingByCategory data={spendingByCategory} />
 			</div>
-			<div className="grid md:grid-cols-[1.5fr_1fr] grid-cols-1 gap-4">
+			<div className="grid lg:grid-cols-[1.5fr_1fr] grid-cols-1 gap-4">
 				<RecentTransactions data={recentTransactions} />
 				<MonthlyBudget data={budgetStats} />
 			</div>

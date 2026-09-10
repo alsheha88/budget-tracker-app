@@ -1,6 +1,6 @@
 import { useState, type SetStateAction } from "react";
 import type { SavingsResponse } from "../../../../../shared/types";
-import { formatDateShort } from "../../../lib/utils";
+import { formatDateShort, formatKWD } from "../../../lib/utils";
 import Badge from "../../ui/Badge";
 import { Card } from "../../ui/Card";
 import ProgressBar from "../../ui/ProgressBar";
@@ -92,16 +92,16 @@ function SavingsCard({
 			<div className="flex flex-col gap-2">
 				<ProgressBar progress={data.percent} color={data.color} />
 				<div className="flex items-center justify-between">
-					<p className="text-caption-lg text-sidebar-foreground">
+					<p className="flex items-center gap-1 text-caption-lg text-sidebar-foreground">
 						Saved:
 						<span className="text-button-md text-text-primary">
-							{data.saved}
+							{formatKWD(data.saved)}
 						</span>
 					</p>
-					<p className="text-caption-lg text-sidebar-foreground">
+					<p className="flex items-center gap-1 text-caption-lg text-sidebar-foreground">
 						Target:
 						<span className="text-button-md text-text-primary">
-							{Number(data.target)}
+							{formatKWD(Number(data.target))}
 						</span>
 					</p>
 				</div>

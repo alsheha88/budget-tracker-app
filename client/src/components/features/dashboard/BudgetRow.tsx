@@ -21,7 +21,7 @@ function BudgetRow({ category, spent, limit, percent }: BudgetRowProps) {
 			<div className="flex items-center justify-between">
 				<p className="text-caption-lg text-text-primary">{category}</p>
 				<p className="text-caption-md text-text-secondary">
-					{formatKWD(spent)}/{formatKWD(limit)}
+					{formatKWD(spent)}/{limit}
 				</p>
 			</div>
 			<ProgressBar progress={percent} color={color} />

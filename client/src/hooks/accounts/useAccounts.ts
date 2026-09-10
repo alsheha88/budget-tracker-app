@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
 	createAccount,
-	deleteAccount,
 	editAccount,
 	getAccountStats,
 } from "../../api/accounts/accounts";
+import toast from "react-hot-toast";
+import { getApiErrorMessage } from "../../lib/api";
 
 export const useGetAccountStats = () => {
 	return useQuery({
@@ -21,6 +22,10 @@ export const useCreateAccount = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Account Created");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -32,18 +37,10 @@ export const useEditAccount = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["accounts"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Changes Saved");
 		},
-	});
-};
-
-export const useDeleteAccount = () => {
-	const queryClient = useQueryClient();
-
-	return useMutation({
-		mutationFn: deleteAccount,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["accounts"] });
-			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };

@@ -57,7 +57,7 @@ function BudgetsPage() {
 				: "hsla(0, 84%, 60%, 1)";
 	return (
 		<div className="grid gap-7">
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col md:flex-row sm:items-center justify-between gap-4">
 				<div className="flex flex-col gap-1">
 					<h2 className="text-h2 text-text-primary">Budgets</h2>
 					<p className="text-caption-lg text-text-secondary">
@@ -65,6 +65,7 @@ function BudgetsPage() {
 					</p>
 				</div>
 				<Button
+					className="shrink-0"
 					size="lg"
 					type="button"
 					onClick={() => {
@@ -88,7 +89,7 @@ function BudgetsPage() {
 				/>
 			) : (
 				<>
-					<Card className="grid grid-cols-3 gap-4 items-center">
+					<Card className="flex lg:flex-row flex-col gap-4 items-center justify-between">
 						<BudgetHealth budgetHealth={budgetHealth} />
 						<div className="flex items-center gap-6">
 							<div className="flex flex-col gap-1.5">
@@ -117,7 +118,7 @@ function BudgetsPage() {
 							</div>
 						</div>
 						<div className="flex flex-col gap-2">
-							<div className="flex justify-between items-center">
+							<div className="flex gap-3 justify-between items-center">
 								<p className="text-caption-lg text-text-primary">
 									Overall Usage Rate
 								</p>
@@ -130,7 +131,7 @@ function BudgetsPage() {
 					</Card>
 					<div className="grid gap-4">
 						<p className="text-h4 text-text-primary">Category Budgets</p>
-						<div className="grid grid-cols-3 gap-4">
+						<div className="grid lg:grid-cols-3 gap-4">
 							{budgets.budgetStats.map((i) => (
 								<BudgetCard
 									key={i.id}

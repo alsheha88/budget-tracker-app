@@ -6,6 +6,8 @@ import {
 	getBillsStats,
 	markAsPaid,
 } from "../../api/bills/bills";
+import toast from "react-hot-toast";
+import { getApiErrorMessage } from "../../lib/api";
 
 export const useGetBillsStats = () => {
 	return useQuery({
@@ -20,6 +22,10 @@ export const useCreateBill = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Bill Created");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -30,6 +36,10 @@ export const useEditBill = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Changes Saved");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -40,8 +50,10 @@ export const useMarkAsPaid = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Changes Saved");
 		},
-		onError: (e) => {
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
@@ -52,6 +64,10 @@ export const useDeleteBill = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["billsStats"] });
 			queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+			toast.success("Bill Deleted");
+		},
+		onError: (error) => {
+			toast.error(getApiErrorMessage(error));
 		},
 	});
 };
