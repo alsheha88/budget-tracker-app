@@ -1,11 +1,8 @@
 node_modules
-# Keep environment variables out of version control
 .env
-
 /skills-lock.json
 /.windsurf
 /.claude
 /.agents
 
-db/prisma
-db/generated/prisma
+db/generated/prisma   ← keep ignoring (generated)
