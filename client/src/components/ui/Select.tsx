@@ -11,7 +11,7 @@ type SelectProps = {
 	onValueChange?: (value: string) => void;
 };
 
-function SelectComponent({ label, options, placeholder, value, onValueChange ,error }: SelectProps) {
+function SelectComponent({ label, options, placeholder, value, onValueChange }: SelectProps) {
 	const labelId = useId();
 	return (
 		<div className="flex flex-col gap-2">
