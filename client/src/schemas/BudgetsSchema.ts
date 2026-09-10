@@ -3,7 +3,7 @@ import z from "zod";
 export const createBudgetSchema = z.object({
 	name: z.string().min(1, "This field is required"),
 	limit: z.number().positive().multipleOf(0.001).max(1_000_000),
-	period: z.enum(["weekly", "monthly", "quarterly", "yearly"]),
+	period: z.enum(["weekly", "monthly", "yearly"]),
 	startDate: z.date(),
 	categoryId: z.uuid(),
 	rollover: z.boolean(),
