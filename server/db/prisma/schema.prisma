@@ -31,6 +31,7 @@ model User {
   refreshTokens       RefreshToken[]
   emailVerfifications EmailVerification[]
   passwordResetTokens PasswordResetToken[]
+  investments         Investment[]
 }
 
 model RefreshToken {
@@ -87,6 +88,8 @@ model Transaction {
   transferGroupId String?         @db.Uuid
   savings         Savings?        @relation(fields: [savingsId], references: [id], onDelete: SetNull)
   savingsId       String?         @db.Uuid
+  investments     Investment?     @relation(fields: [investmentId], references: [id], onDelete: SetNull)
+  investmentId    String?         @db.Uuid
 
   @@index([transferGroupId])
 }
@@ -194,4 +197,28 @@ enum Priority {
   high
   medium
   low
+}
+
+model Investment {
+  id            String             @id @default(uuid()) @db.Uuid
+  asset         String
+  category      InvestmentCategory
+  shares        Decimal
+  purchasePrice Decimal
+  currentPrice  Decimal
+  platform      String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  userId        String             @db.Uuid
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions  Transaction[]
+}
+
+enum InvestmentCategory {
+  stocks
+  ETF
+  crypto
+  funds
+  commodity
+  other
 }
