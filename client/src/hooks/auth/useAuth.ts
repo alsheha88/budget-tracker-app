@@ -30,7 +30,7 @@ export const useSignup = () => {
 	return useMutation({
 		mutationFn: signup,
 		onSuccess: () => {
-			navigate("/verify-email");
+			navigate("/login");
 			toast.success("Sign up successfull, please verify your email");
 		},
 		onError: (error) => {
