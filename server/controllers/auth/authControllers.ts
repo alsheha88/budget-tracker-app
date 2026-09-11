@@ -52,16 +52,18 @@ export const signUp: RequestHandler = async (req, res) => {
 		phoneNumber: validateRequest.data.phoneNumber,
 		email,
 		passwordHash,
+		isVerified: true,
 	};
-	const rawToken = generateRawToken();
-	const tokenHash = hashToken(rawToken);
+	// const rawToken = generateRawToken();
+	// const tokenHash = hashToken(rawToken);
 	const createdUser = await prisma.$transaction(async (tx) => {
 		const user = await createUser(newUser, tx);
-		await createEmailVerification(tokenHash, user.id, tx);
+		// await createEmailVerification(tokenHash, user.id, tx);
+
 		return user;
 	});
 
-	await sendVerificationEmail(email, rawToken);
+	// await sendVerificationEmail(email, rawToken);
 
 	res.status(201).json({
 		data: {
