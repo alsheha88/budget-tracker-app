@@ -351,6 +351,23 @@ export type EnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPriorityFilter<$PrismaModel>
 }
 
+export type EnumInvestmentCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvestmentCategory | Prisma.EnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel> | $Enums.InvestmentCategory
+}
+
+export type EnumInvestmentCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvestmentCategory | Prisma.EnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvestmentCategoryWithAggregatesFilter<$PrismaModel> | $Enums.InvestmentCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel>
+}
+
 export type NestedUuidFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -695,6 +712,23 @@ export type NestedEnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPriorityFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumInvestmentCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvestmentCategory | Prisma.EnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel> | $Enums.InvestmentCategory
+}
+
+export type NestedEnumInvestmentCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvestmentCategory | Prisma.EnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvestmentCategory[] | Prisma.ListEnumInvestmentCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvestmentCategoryWithAggregatesFilter<$PrismaModel> | $Enums.InvestmentCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvestmentCategoryFilter<$PrismaModel>
 }
 
 

@@ -406,7 +406,8 @@ export const ModelName = {
   Bill: 'Bill',
   Budget: 'Budget',
   Account: 'Account',
-  Savings: 'Savings'
+  Savings: 'Savings',
+  Investment: 'Investment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "emailVerification" | "passwordResetToken" | "transaction" | "category" | "bill" | "budget" | "account" | "savings"
+    modelProps: "user" | "refreshToken" | "emailVerification" | "passwordResetToken" | "transaction" | "category" | "bill" | "budget" | "account" | "savings" | "investment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1166,6 +1167,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Investment: {
+      payload: Prisma.$InvestmentPayload<ExtArgs>
+      fields: Prisma.InvestmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InvestmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InvestmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        findFirst: {
+          args: Prisma.InvestmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InvestmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        findMany: {
+          args: Prisma.InvestmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>[]
+        }
+        create: {
+          args: Prisma.InvestmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        createMany: {
+          args: Prisma.InvestmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InvestmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>[]
+        }
+        delete: {
+          args: Prisma.InvestmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        update: {
+          args: Prisma.InvestmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.InvestmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InvestmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InvestmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.InvestmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvestmentPayload>
+        }
+        aggregate: {
+          args: Prisma.InvestmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInvestment>
+        }
+        groupBy: {
+          args: Prisma.InvestmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvestmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InvestmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvestmentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1272,7 +1347,8 @@ export const TransactionScalarFieldEnum = {
   accountId: 'accountId',
   budgetId: 'budgetId',
   transferGroupId: 'transferGroupId',
-  savingsId: 'savingsId'
+  savingsId: 'savingsId',
+  investmentId: 'investmentId'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -1350,6 +1426,22 @@ export const SavingsScalarFieldEnum = {
 } as const
 
 export type SavingsScalarFieldEnum = (typeof SavingsScalarFieldEnum)[keyof typeof SavingsScalarFieldEnum]
+
+
+export const InvestmentScalarFieldEnum = {
+  id: 'id',
+  asset: 'asset',
+  category: 'category',
+  shares: 'shares',
+  purchasePrice: 'purchasePrice',
+  currentPrice: 'currentPrice',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type InvestmentScalarFieldEnum = (typeof InvestmentScalarFieldEnum)[keyof typeof InvestmentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1498,6 +1590,20 @@ export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Priority[]'
  */
 export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InvestmentCategory'
+ */
+export type EnumInvestmentCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvestmentCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'InvestmentCategory[]'
+ */
+export type ListEnumInvestmentCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvestmentCategory[]'>
     
 
 
@@ -1675,6 +1781,7 @@ export type GlobalOmitConfig = {
   budget?: Prisma.BudgetOmit
   account?: Prisma.AccountOmit
   savings?: Prisma.SavingsOmit
+  investment?: Prisma.InvestmentOmit
 }
 
 /* Types for Logging */

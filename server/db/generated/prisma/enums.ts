@@ -46,3 +46,15 @@ export const Priority = {
 } as const
 
 export type Priority = (typeof Priority)[keyof typeof Priority]
+
+
+export const InvestmentCategory = {
+  stocks: 'stocks',
+  ETF: 'ETF',
+  crypto: 'crypto',
+  funds: 'funds',
+  commodity: 'commodity',
+  other: 'other'
+} as const
+
+export type InvestmentCategory = (typeof InvestmentCategory)[keyof typeof InvestmentCategory]

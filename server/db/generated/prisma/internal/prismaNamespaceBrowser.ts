@@ -60,7 +60,8 @@ export const ModelName = {
   Bill: 'Bill',
   Budget: 'Budget',
   Account: 'Account',
-  Savings: 'Savings'
+  Savings: 'Savings',
+  Investment: 'Investment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -146,7 +147,8 @@ export const TransactionScalarFieldEnum = {
   accountId: 'accountId',
   budgetId: 'budgetId',
   transferGroupId: 'transferGroupId',
-  savingsId: 'savingsId'
+  savingsId: 'savingsId',
+  investmentId: 'investmentId'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -224,6 +226,22 @@ export const SavingsScalarFieldEnum = {
 } as const
 
 export type SavingsScalarFieldEnum = (typeof SavingsScalarFieldEnum)[keyof typeof SavingsScalarFieldEnum]
+
+
+export const InvestmentScalarFieldEnum = {
+  id: 'id',
+  asset: 'asset',
+  category: 'category',
+  shares: 'shares',
+  purchasePrice: 'purchasePrice',
+  currentPrice: 'currentPrice',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type InvestmentScalarFieldEnum = (typeof InvestmentScalarFieldEnum)[keyof typeof InvestmentScalarFieldEnum]
 
 
 export const SortOrder = {

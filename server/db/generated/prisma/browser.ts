@@ -67,3 +67,8 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Savings = Prisma.SavingsModel
+/**
+ * Model Investment
+ * 
+ */
+export type Investment = Prisma.InvestmentModel
