@@ -16,10 +16,10 @@ export const getCurrentPeriod = (period: "weekly" | "monthly" | "yearly") => {
 		);
 	} else if (period === "monthly") {
 		startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-		endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // last day of month
+		endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 	} else {
 		startDate = new Date(now.getFullYear(), 0, 1);
-		endDate = new Date(now.getFullYear(), 11, 31); // Dec 31
+		endDate = new Date(now.getFullYear(), 11, 31);
 	}
 
 	return { startDate, endDate };
