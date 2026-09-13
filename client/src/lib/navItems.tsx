@@ -6,6 +6,7 @@ import {
 	CircleDollarSign,
 	PiggyBank,
 	UserSquare2Icon,
+	TrendingUp,
 } from "lucide-react";
 
 export const navItems = [
@@ -47,6 +48,12 @@ export const navItems = [
 	},
 	{
 		id: 7,
+		item: "Investments",
+		to: "/investments",
+		icon: <TrendingUp className="text-current" />,
+	},
+	{
+		id: 8,
 		item: "Profile",
 		to: "/profile",
 		icon: <UserSquare2Icon className="text-current" />,

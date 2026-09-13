@@ -217,7 +217,7 @@ export type BillsStatsRespoonse = {
 // ============================================================
 // Investments
 // ============================================================
-export type InvestmentStats = {
+export type InvestmentsData = {
 	historicalInvestments: {
 		investmentId: string | null;
 		_sum: {
