@@ -15,6 +15,14 @@ export type Period = "weekly" | "monthly" | "yearly";
 
 export type Priority = "high" | "medium" | "low";
 
+export type InvestmentCategory =
+	| "stocks"
+	| "ETF"
+	| "crypto"
+	| "funds"
+	| "commodity"
+	| "other";
+
 // ============================================================
 // Shared sub-shapes
 // ============================================================
@@ -206,9 +214,41 @@ export type BillsStatsRespoonse = {
 	};
 };
 
-
-
-
-
-
-
+// ============================================================
+// Investments
+// ============================================================
+export type InvestmentStats = {
+	historicalInvestments: {
+		investmentId: string | null;
+		_sum: {
+			amount: string | null;
+		};
+	}[];
+	investmentsByCategory: {
+		category: string;
+		value: number;
+		percentage: number;
+	}[];
+	investmentStats: {
+		currentValue: number;
+		invested: number;
+		gainLoss: number;
+		percent: number;
+		asset: string;
+		category: InvestmentCategory;
+		shares: string;
+		purchasePrice: string;
+		platform: string | null;
+		id: string;
+		currentPrice: string;
+		createdAt: string;
+		updatedAt: string;
+		userId: string;
+	}[];
+	summary: {
+		totalValue: number;
+		totalInvested: number;
+		totalGainLoss: number;
+		totalGainLossPercent: number;
+	};
+};
